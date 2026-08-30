@@ -1,423 +1,826 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
 <title>JEE Study Hub - Stats</title>
 
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
 
 body{
-    font-family:Arial,sans-serif;
-    background:#0d0b18;
-    color:white;
-    padding-bottom:40px;
+font-family:Arial,sans-serif;
+background:#0d0b18;
+color:white;
+padding-bottom:40px;
 }
 
 header{
-    text-align:center;
-    padding:25px 15px;
+text-align:center;
+padding:25px 15px;
 }
 
 header a{
-    color:#b9a8ff;
-    text-decoration:none;
+color:#b9a8ff;
+text-decoration:none;
 }
 
 h1{
-    margin:12px 0;
-    font-size:30px;
+margin:12px 0;
+font-size:30px;
 }
 
 .container{
-    max-width:750px;
-    margin:auto;
-    padding:15px;
+max-width:750px;
+margin:auto;
+padding:15px;
 }
 
 .card{
-    background:#171329;
-    border:1px solid #30265a;
-    border-radius:20px;
-    padding:22px;
-    margin:16px 0;
+background:#171329;
+border:1px solid #30265a;
+border-radius:20px;
+padding:22px;
+margin:16px 0;
 }
 
 .big{
-    text-align:center;
-    font-size:45px;
-    font-weight:bold;
-    color:#c4b5fd;
-    margin:15px 0;
+text-align:center;
+font-size:45px;
+font-weight:bold;
+color:#c4b5fd;
+margin:15px 0;
 }
 
 .stat{
-    display:flex;
-    justify-content:space-between;
-    padding:14px 0;
-    border-bottom:1px solid #30265a;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:14px 0;
+border-bottom:1px solid #30265a;
 }
 
 .stat:last-child{
-    border-bottom:0;
+border-bottom:0;
 }
 
 .subject{
-    margin:18px 0;
+margin:18px 0;
 }
 
 .top{
-    display:flex;
-    justify-content:space-between;
-    margin-bottom:7px;
+display:flex;
+justify-content:space-between;
+margin-bottom:7px;
 }
 
 .bar{
-    height:12px;
-    background:#2b2640;
-    border-radius:20px;
-    overflow:hidden;
+height:12px;
+background:#2b2640;
+border-radius:20px;
+overflow:hidden;
 }
 
 .fill{
-    height:100%;
-    width:0%;
-    background:#8b5cf6;
-    border-radius:20px;
+height:100%;
+width:0%;
+background:#8b5cf6;
+border-radius:20px;
+transition:width .4s;
+}
+
+.pro-lock{
+margin-top:15px;
+padding:18px;
+background:#211b38;
+border:1px solid #8b5cf6;
+border-radius:14px;
+text-align:center;
+}
+
+.lock{
+font-size:35px;
+margin-bottom:8px;
+}
+
+.small{
+color:#aaa;
+font-size:14px;
+line-height:1.6;
 }
 
 button{
-    width:100%;
-    padding:14px;
-    border:0;
-    border-radius:12px;
-    background:#7c3aed;
-    color:white;
-    font-weight:bold;
-    font-size:16px;
-    margin-top:15px;
+width:100%;
+padding:14px;
+border:0;
+border-radius:12px;
+background:#7c3aed;
+color:white;
+font-weight:bold;
+font-size:16px;
+margin-top:15px;
+cursor:pointer;
 }
+
+button:hover{
+background:#8b5cf6;
+}
+
+footer{
+text-align:center;
+padding:30px 15px;
+color:#777;
+font-size:13px;
+}
+
 </style>
+
 </head>
+
 
 <body>
 
+
 <header>
-    <a href="index.html">← Back to Home</a>
-    <h1>📊 Your Statistics</h1>
+
+<a href="index.html">
+← Back to Home
+</a>
+
+<h1>
+📊 Your Statistics
+</h1>
+
 </header>
+
 
 <div class="container">
 
-<div class="card">
 
-    <h2>🏆 Overall Progress</h2>
-
-    <div class="big" id="overall">0%</div>
-
-    <div class="stat">
-        <span>Questions Attempted</span>
-        <b id="attempted">0</b>
-    </div>
-
-    <div class="stat">
-        <span>Correct Answers</span>
-        <b id="correct">0</b>
-    </div>
-
-    <div class="stat">
-        <span>Accuracy</span>
-        <b id="accuracy">0%</b>
-    </div>
-
-    <div class="stat">
-        <span>Completed Chapters</span>
-        <b id="completed">0</b>
-    </div>
-
-</div>
-
+<!-- =========================
+     OVERALL PROGRESS
+========================= -->
 
 <div class="card">
 
-    <h2>📚 Subject Progress</h2>
-
-    <div class="subject">
-
-        <div class="top">
-            <span>⚡ Physics</span>
-            <b id="physicsText">0%</b>
-        </div>
-
-        <div class="bar">
-            <div class="fill" id="physicsBar"></div>
-        </div>
-
-    </div>
+<h2>
+🏆 Overall Progress
+</h2>
 
 
-    <div class="subject">
-
-        <div class="top">
-            <span>🧪 Chemistry</span>
-            <b id="chemistryText">0%</b>
-        </div>
-
-        <div class="bar">
-            <div class="fill" id="chemistryBar"></div>
-        </div>
-
-    </div>
+<div class="big"
+id="overall">
+0%
+</div>
 
 
-    <div class="subject">
+<div class="stat">
 
-        <div class="top">
-            <span>📐 Mathematics</span>
-            <b id="mathsText">0%</b>
-        </div>
+<span>
+Completed Chapters
+</span>
 
-        <div class="bar">
-            <div class="fill" id="mathsBar"></div>
-        </div>
-
-    </div>
+<b id="completed">
+0
+</b>
 
 </div>
 
+
+<div class="stat">
+
+<span>
+Questions Attempted
+</span>
+
+<b id="attempted">
+0
+</b>
+
+</div>
+
+
+<div class="stat">
+
+<span>
+Correct Answers
+</span>
+
+<b id="correct">
+0
+</b>
+
+</div>
+
+
+<!-- ACCURACY PRO -->
+
+<div class="pro-lock">
+
+<div class="lock">
+🔒
+</div>
+
+<h3>
+Accuracy — PRO
+</h3>
+
+<p class="small"
+style="margin-top:8px">
+
+Your exact accuracy percentage,
+subject-wise accuracy and detailed
+performance are available in PRO.
+
+</p>
+
+
+<button onclick="location.href='pro.html'">
+
+⭐ Unlock PRO
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- =========================
+     SUBJECT PROGRESS
+========================= -->
 
 <div class="card">
 
-    <h2>🔥 Practice Performance</h2>
+<h2>
+📚 Subject Progress
+</h2>
 
-    <div class="stat">
-        <span>Best Score</span>
-        <b id="bestScore">0</b>
-    </div>
 
-    <div class="stat">
-        <span>Total Completed PYQs</span>
-        <b id="pyqCompleted">0</b>
-    </div>
+<!-- PHYSICS -->
 
-    <div class="stat">
-        <span>Current Streak</span>
-        <b>🔥 0 days</b>
-    </div>
+<div class="subject">
+
+<div class="top">
+
+<span>
+⚡ Physics
+</span>
+
+<b id="physicsText">
+0%
+</b>
 
 </div>
 
+<div class="bar">
+
+<div
+class="fill"
+id="physicsBar">
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- CHEMISTRY -->
+
+<div class="subject">
+
+<div class="top">
+
+<span>
+🧪 Chemistry
+</span>
+
+<b id="chemistryText">
+0%
+</b>
+
+</div>
+
+<div class="bar">
+
+<div
+class="fill"
+id="chemistryBar">
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- MATHEMATICS -->
+
+<div class="subject">
+
+<div class="top">
+
+<span>
+📐 Mathematics
+</span>
+
+<b id="mathsText">
+0%
+</b>
+
+</div>
+
+<div class="bar">
+
+<div
+class="fill"
+id="mathsBar">
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- =========================
+     PRACTICE PERFORMANCE
+========================= -->
 
 <div class="card">
 
-    <h2>💡 Keep Going!</h2>
+<h2>
+🔥 Practice Performance
+</h2>
 
-    <p style="color:#aaa;margin-top:10px;line-height:1.6">
-        Complete Theory + PYQs for every chapter
-        and watch your JEE Study Hub progress grow.
-    </p>
 
-    <button onclick="location.href='chapters.html'">
-        📚 Continue Studying
-    </button>
+<div class="stat">
+
+<span>
+Total Completed PYQs
+</span>
+
+<b id="pyqCompleted">
+0
+</b>
+
+</div>
+
+
+<div class="stat">
+
+<span>
+Best Score
+</span>
+
+<b id="bestScore">
+0
+</b>
+
+</div>
+
+
+<div class="stat">
+
+<span>
+Current Streak
+</span>
+
+<b id="streak">
+0 days
+</b>
 
 </div>
 
 </div>
+
+
+
+<!-- =========================
+     PRO ANALYTICS
+========================= -->
+
+<div class="card">
+
+<h2>
+⭐ PRO Analytics
+</h2>
+
+
+<p class="small">
+
+Unlock detailed analytics and see exactly
+where your JEE preparation stands.
+
+</p>
+
+
+<div style="
+margin-top:18px;
+background:#211b38;
+padding:15px;
+border-radius:12px;
+line-height:2;
+">
+
+🔒 Exact Accuracy<br>
+
+🔒 Physics Accuracy<br>
+
+🔒 Chemistry Accuracy<br>
+
+🔒 Mathematics Accuracy<br>
+
+🔒 Chapter-wise Performance<br>
+
+🔒 Weak Chapter Detection<br>
+
+🔒 Average Question Time<br>
+
+🔒 JEE Advanced Performance
+
+</div>
+
+
+<button onclick="location.href='pro.html'">
+
+⭐ View PRO Features
+
+</button>
+
+</div>
+
+
+
+<!-- =========================
+     CONTINUE
+========================= -->
+
+<div class="card">
+
+<h2>
+💡 Keep Going!
+</h2>
+
+
+<p class="small"
+style="margin-top:10px">
+
+Complete Theory + PYQs for every chapter
+and watch your JEE Study Hub progress grow.
+
+</p>
+
+
+<button onclick="location.href='chapters.html'">
+
+📚 Continue Studying
+
+</button>
+
+</div>
+
+
+</div>
+
+
+<footer>
+
+© 2026 JEE Study Hub<br>
+
+Mentored by Dibyanshu
+
+</footer>
+
 
 
 <script>
 
+
+/* =================================
+   CHAPTER DATABASE
+================================= */
+
 const chapters = {
 
+
 physics:[
+
 "physics-kinematics",
+
 "physics-nlm",
+
 "physics-wep",
+
 "physics-rotation"
+
 ],
+
 
 chemistry:[
+
 "chem-mole",
+
 "chem-atomic",
+
 "chem-periodic",
+
 "chem-bonding"
+
 ],
 
+
 maths:[
+
 "math-sets",
+
 "math-quadratic",
+
 "math-sequence",
+
 "math-trigonometry"
+
 ]
 
 };
 
 
+
+/* =================================
+   SUBJECT PROGRESS
+================================= */
+
 function subjectProgress(list){
 
-    let completed = 0;
+let completed=0;
 
-    list.forEach(function(id){
 
-        if(
-            localStorage.getItem(
-                id + "-completed"
-            ) === "true"
-        ){
-            completed++;
-        }
+list.forEach(function(id){
 
-    });
+if(
+localStorage.getItem(
+id+"-completed"
+)==="true"
+){
 
-    return Math.round(
-        completed / list.length * 100
-    );
+completed++;
+
+}
+
+});
+
+
+if(list.length===0){
+
+return 0;
 
 }
 
 
+return Math.round(
+completed/list.length*100
+);
+
+}
+
+
+
+/* =================================
+   UPDATE STATS
+================================= */
+
 function update(){
 
-    let physics =
-        subjectProgress(chapters.physics);
 
-    let chemistry =
-        subjectProgress(chapters.chemistry);
+/* SUBJECT */
 
-    let maths =
-        subjectProgress(chapters.maths);
-
-
-    let overall =
-        Math.round(
-            (physics + chemistry + maths) / 3
-        );
+let physics=
+subjectProgress(
+chapters.physics
+);
 
 
-    document.getElementById("overall")
-        .innerText =
-        overall + "%";
+let chemistry=
+subjectProgress(
+chapters.chemistry
+);
 
 
-    document.getElementById("physicsText")
-        .innerText =
-        physics + "%";
-
-    document.getElementById("chemistryText")
-        .innerText =
-        chemistry + "%";
-
-    document.getElementById("mathsText")
-        .innerText =
-        maths + "%";
+let maths=
+subjectProgress(
+chapters.maths
+);
 
 
-    document.getElementById("physicsBar")
-        .style.width =
-        physics + "%";
+/* OVERALL */
 
-    document.getElementById("chemistryBar")
-        .style.width =
-        chemistry + "%";
-
-    document.getElementById("mathsBar")
-        .style.width =
-        maths + "%";
-
-
-    let all =
-        chapters.physics
-        .concat(
-            chapters.chemistry,
-            chapters.maths
-        );
-
-    let completed = 0;
-
-    all.forEach(function(id){
-
-        if(
-            localStorage.getItem(
-                id + "-completed"
-            ) === "true"
-        ){
-            completed++;
-        }
-
-    });
+let overall=
+Math.round(
+(
+physics+
+chemistry+
+maths
+)/3
+);
 
 
-    document.getElementById("completed")
-        .innerText =
-        completed;
+/* DISPLAY */
+
+document.getElementById(
+"overall"
+).innerText=
+overall+"%";
 
 
-    document.getElementById("pyqCompleted")
-        .innerText =
-        all.filter(function(id){
-
-            return localStorage.getItem(
-                id + "-pyq"
-            ) === "true";
-
-        }).length;
+document.getElementById(
+"physicsText"
+).innerText=
+physics+"%";
 
 
-    document.getElementById("attempted")
-        .innerText =
-        localStorage.getItem(
-            "totalAttempted"
-        ) || 0;
-
-    document.getElementById("correct")
-        .innerText =
-        localStorage.getItem(
-            "totalCorrect"
-        ) || 0;
+document.getElementById(
+"chemistryText"
+).innerText=
+chemistry+"%";
 
 
-    let attempted =
-        Number(
-            localStorage.getItem(
-                "totalAttempted"
-            )
-        ) || 0;
-
-    let correct =
-        Number(
-            localStorage.getItem(
-                "totalCorrect"
-            )
-        ) || 0;
+document.getElementById(
+"mathsText"
+).innerText=
+maths+"%";
 
 
-    let accuracy =
-        attempted > 0
-        ? Math.round(
-            correct / attempted * 100
-        )
-        : 0;
+/* BARS */
+
+document.getElementById(
+"physicsBar"
+).style.width=
+physics+"%";
 
 
-    document.getElementById("accuracy")
-        .innerText =
-        accuracy + "%";
+document.getElementById(
+"chemistryBar"
+).style.width=
+chemistry+"%";
 
 
-    document.getElementById("bestScore")
-        .innerText =
-        localStorage.getItem(
-            "bestScore"
-        ) || 0;
+document.getElementById(
+"mathsBar"
+).style.width=
+maths+"%";
+
+
+
+/* ALL CHAPTERS */
+
+let all=
+chapters.physics
+.concat(
+chapters.chemistry,
+chapters.maths
+);
+
+
+let completed=0;
+
+
+all.forEach(function(id){
+
+if(
+localStorage.getItem(
+id+"-completed"
+)==="true"
+){
+
+completed++;
+
+}
+
+});
+
+
+document.getElementById(
+"completed"
+).innerText=
+completed;
+
+
+
+/* PYQ COMPLETED */
+
+let pyqCompleted=0;
+
+
+all.forEach(function(id){
+
+if(
+localStorage.getItem(
+id+"-pyq"
+)==="true"
+){
+
+pyqCompleted++;
+
+}
+
+});
+
+
+document.getElementById(
+"pyqCompleted"
+).innerText=
+pyqCompleted;
+
+
+
+/* QUESTIONS */
+
+let attempted=
+Number(
+localStorage.getItem(
+"totalAttempted"
+)
+)||0;
+
+
+let correct=
+Number(
+localStorage.getItem(
+"totalCorrect"
+)
+)||0;
+
+
+document.getElementById(
+"attempted"
+).innerText=
+attempted;
+
+
+document.getElementById(
+"correct"
+).innerText=
+correct;
+
+
+
+/* BEST SCORE */
+
+document.getElementById(
+"bestScore"
+).innerText=
+localStorage.getItem(
+"bestScore"
+)||0;
+
+
+
+/* STREAK */
+
+let streak=
+Number(
+localStorage.getItem(
+"studyStreak"
+)
+)||0;
+
+
+document.getElementById(
+"streak"
+).innerText=
+streak+" days";
 
 }
 
 
 update();
 
+
+/* UPDATE WHEN RETURNING TO PAGE */
+
+window.addEventListener(
+"pageshow",
+update
+);
+
 </script>
 
+
 </body>
-              </html>
+
+    </html>

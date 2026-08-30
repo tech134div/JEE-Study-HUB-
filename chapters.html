@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>JEE Study Hub - Chapters</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#0d0b18;
+    color:white;
+    padding-bottom:40px;
+}
+
+header{
+    text-align:center;
+    padding:25px 15px;
+}
+
+header a{
+    color:#b9a8ff;
+    text-decoration:none;
+}
+
+h1{
+    margin-top:10px;
+    font-size:32px;
+}
+
+.subtitle{
+    color:#aaa;
+    margin-top:6px;
+}
+
+.container{
+    max-width:750px;
+    margin:auto;
+    padding:15px;
+}
+
+.subject{
+    background:#171329;
+    border:1px solid #30265a;
+    border-radius:20px;
+    padding:20px;
+    margin:18px 0;
+}
+
+.subject h2{
+    margin-bottom:15px;
+}
+
+.chapter{
+    background:#211b38;
+    border-radius:14px;
+    padding:15px;
+    margin:10px 0;
+}
+
+.chapter-name{
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:12px;
+}
+
+.actions{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+button{
+    border:0;
+    border-radius:10px;
+    padding:10px 13px;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.theory{
+    background:#4c3a91;
+}
+
+.pyq{
+    background:#7c3aed;
+}
+
+.done{
+    background:#444;
+}
+
+.done.unlocked{
+    background:#16a34a;
+}
+
+.done:disabled{
+    opacity:.45;
+    cursor:not-allowed;
+}
+
+.status{
+    margin-top:9px;
+    color:#aaa;
+    font-size:13px;
+}
+
+.home{
+    display:inline-block;
+    margin-top:10px;
+    padding:10px 15px;
+    background:#7c3aed;
+    border-radius:10px;
+    color:white;
+    text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <a href="index.html">← Back to Home</a>
+
+    <h1>📚 JEE Chapters</h1>
+
+    <p class="subtitle">
+        Complete Theory + PYQ → Mark Chapter Done
+    </p>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- ================= PHYSICS ================= -->
+
+<div class="subject">
+
+<h2>⚡ Physics</h2>
+
+
+<div class="chapter" data-id="physics-kinematics">
+
+    <div class="chapter-name">
+        Kinematics
+    </div>
+
+    <div class="actions">
+
+        <button class="theory"
+        onclick="openTheory('Kinematics')">
+        📖 Theory
+        </button>
+
+        <button class="pyq"
+        onclick="openPYQ('Kinematics')">
+        🔥 PYQ
+        </button>
+
+        <button class="done"
+        disabled
+        onclick="completeChapter('physics-kinematics')">
+        🔒 Mark Done
+        </button>
+
+    </div>
+
+    <div class="status">
+        Theory: ❌ | PYQ: ❌
+    </div>
+
+</div>
+
+
+<div class="chapter" data-id="physics-nlm">
+
+    <div class="chapter-name">
+        Laws of Motion
+    </div>
+
+    <div class="actions">
+
+        <button class="theory"
+        onclick="openTheory('Laws of Motion')">
+        📖 Theory
+        </button>
+
+        <button class="pyq"
+        onclick="openPYQ('Laws of Motion')">
+        🔥 PYQ
+        </button>
+
+        <button class="done"
+        disabled
+        onclick="completeChapter('physics-nlm')">
+        🔒 Mark Done
+        </button>
+
+    </div>
+
+    <div class="status">
+        Theory: ❌ | PYQ: ❌
+    </div>
+
+</div>
+
+
+<div class="chapter" data-id="

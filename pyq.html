@@ -3,235 +3,522 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>JEE Study Hub - PYQ</title>
+
+<title>JEE Study Hub - JEE Main PYQ</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
 
 body{
-    font-family:Arial,sans-serif;
-    background:#0d0b18;
-    color:white;
-    padding-bottom:40px;
+font-family:Arial,sans-serif;
+background:#0d0b18;
+color:white;
+padding-bottom:50px;
 }
 
 header{
-    text-align:center;
-    padding:25px 15px;
+text-align:center;
+padding:25px 15px;
 }
 
 header a{
-    color:#b9a8ff;
-    text-decoration:none;
+color:#b9a8ff;
+text-decoration:none;
 }
 
 h1{
-    margin:12px 0;
-    font-size:30px;
+margin:12px 0;
+font-size:30px;
+}
+
+.subtitle{
+color:#aaa;
+line-height:1.5;
 }
 
 .container{
-    max-width:750px;
-    margin:auto;
-    padding:15px;
+max-width:750px;
+margin:auto;
+padding:15px;
 }
 
 .card{
-    background:#171329;
-    border:1px solid #30265a;
-    border-radius:20px;
-    padding:22px;
-    margin:16px 0;
+background:#171329;
+border:1px solid #30265a;
+border-radius:20px;
+padding:22px;
+margin:16px 0;
 }
 
-.question{
-    font-size:19px;
-    line-height:1.6;
-    margin-bottom:20px;
+h2{
+margin-bottom:15px;
 }
 
-.options{
-    display:grid;
-    gap:10px;
-}
-
-.option{
-    background:#211b38;
-    border:1px solid #3b3260;
-    color:white;
-    padding:14px;
-    border-radius:12px;
-    text-align:left;
-    cursor:pointer;
-}
-
-.option.selected{
-    border-color:#8b5cf6;
-    background:#302252;
-}
-
-.option.correct{
-    background:#14532d;
-    border-color:#22c55e;
-}
-
-.option.wrong{
-    background:#5f1d2a;
-    border-color:#ef4444;
-}
-
+select,
 button{
-    border:0;
-    border-radius:12px;
-    padding:13px 18px;
-    background:#7c3aed;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-    margin:6px 4px 0 0;
-}
-
-button:disabled{
-    opacity:.5;
-    cursor:not-allowed;
-}
-
-.timer{
-    text-align:center;
-    font-size:40px;
-    font-weight:bold;
-    color:#c4b5fd;
-    margin:10px 0 20px;
-}
-
-.timer.warning{
-    color:#ef4444;
-}
-
-.info{
-    display:flex;
-    justify-content:space-between;
-    color:#aaa;
-    margin-bottom:15px;
-}
-
-.result{
-    margin-top:18px;
-    padding:15px;
-    border-radius:12px;
-    background:#211b38;
-    line-height:1.6;
+width:100%;
+padding:14px;
+border-radius:12px;
+border:1px solid #4b3b77;
+font-size:16px;
 }
 
 select{
-    width:100%;
-    padding:13px;
-    border-radius:10px;
-    border:1px solid #4b3b77;
-    background:#211b38;
-    color:white;
-    font-size:16px;
+background:#211b38;
+color:white;
+margin-bottom:10px;
 }
+
+button{
+border:0;
+background:#7c3aed;
+color:white;
+font-weight:bold;
+cursor:pointer;
+margin-top:8px;
+}
+
+button:hover{
+background:#8b5cf6;
+}
+
+.filters{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.question{
+background:#211b38;
+padding:18px;
+border-radius:14px;
+margin-top:15px;
+line-height:1.6;
+}
+
+.options{
+display:grid;
+gap:10px;
+margin-top:15px;
+}
+
+.option{
+background:#171329;
+border:1px solid #3b3260;
+text-align:left;
+}
+
+.option.selected{
+border-color:#8b5cf6;
+background:#302252;
+}
+
+.option.correct{
+background:#14532d;
+border-color:#22c55e;
+}
+
+.option.wrong{
+background:#5f1d2a;
+border-color:#ef4444;
+}
+
+.timer{
+text-align:center;
+font-size:38px;
+font-weight:bold;
+color:#c4b5fd;
+margin:15px 0;
+}
+
+.timer.warning{
+color:#ef4444;
+}
+
+.info{
+display:flex;
+justify-content:space-between;
+color:#aaa;
+}
+
+.locked{
+border:1px solid #8b5cf6;
+text-align:center;
+}
+
+.pro{
+font-size:28px;
+margin:10px 0;
+font-weight:bold;
+}
+
+.lock{
+font-size:45px;
+margin:10px;
+}
+
+.small{
+color:#aaa;
+font-size:14px;
+line-height:1.5;
+}
+
+.result{
+margin-top:15px;
+padding:15px;
+background:#211b38;
+border-radius:12px;
+line-height:1.6;
+}
+
+.source{
+margin-top:15px;
+padding:12px;
+background:#211b38;
+border-radius:10px;
+font-size:13px;
+color:#aaa;
+}
+
+footer{
+text-align:center;
+color:#777;
+font-size:13px;
+padding:25px;
+}
+
+@media(max-width:500px){
+
+.filters{
+grid-template-columns:1fr;
+}
+
+}
+
 </style>
 </head>
 
+
 <body>
 
+
 <header>
-    <a href="chapters.html">← Back to Chapters</a>
-    <h1>🔥 PYQ Practice</h1>
+
+<a href="index.html">
+← Back to Home
+</a>
+
+<h1>🔥 JEE Main PYQ</h1>
+
+<p class="subtitle">
+2016–2026 • Year-wise • Subject-wise • Chapter-wise
+</p>
+
 </header>
+
 
 <div class="container">
 
-<div class="card">
 
-    <h2>📚 Select Chapter</h2>
-
-    <select id="chapterSelect" onchange="loadQuestions()">
-        <option value="Kinematics">Kinematics</option>
-        <option value="Laws of Motion">Laws of Motion</option>
-        <option value="Work, Energy & Power">Work, Energy & Power</option>
-        <option value="Mole Concept">Mole Concept</option>
-        <option value="Atomic Structure">Atomic Structure</option>
-        <option value="Quadratic Equations">Quadratic Equations</option>
-        <option value="Trigonometry">Trigonometry</option>
-    </select>
-
-    <button id="alarmBtn" onclick="enableAlarm()">
-        🔔 Enable Alarm
-    </button>
-
-</div>
-
+<!-- FILTERS -->
 
 <div class="card">
 
-    <div class="info">
-        <span id="questionNumber">Question 1</span>
-        <span>Score: <b id="score">0</b></span>
-    </div>
+<h2>📚 Select PYQ</h2>
 
-    <div class="timer" id="timer">01:00</div>
 
-    <div class="question" id="question">
-        Loading question...
-    </div>
+<div class="filters">
 
-    <div class="options" id="options"></div>
+<div>
 
-    <div>
-        <button id="submitBtn" onclick="submitAnswer()">
-            Submit Answer
-        </button>
+<label>Year</label>
 
-        <button id="nextBtn" onclick="nextQuestion()" disabled>
-            Next →
-        </button>
-    </div>
+<select id="year">
 
-    <div id="result"></div>
+<option>2026</option>
+<option>2025</option>
+<option>2024</option>
+<option>2023</option>
+<option>2022</option>
+<option>2021</option>
+<option>2020</option>
+<option>2019</option>
+<option>2018</option>
+<option>2017</option>
+<option>2016</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>Subject</label>
+
+<select id="subject">
+
+<option>Physics</option>
+<option>Chemistry</option>
+<option>Mathematics</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<label>Chapter</label>
+
+<select id="chapter">
+
+<option>Kinematics</option>
+<option>Laws of Motion</option>
+<option>Work, Energy & Power</option>
+
+<option>Mole Concept</option>
+<option>Atomic Structure</option>
+<option>Chemical Bonding</option>
+
+<option>Quadratic Equations</option>
+<option>Trigonometry</option>
+<option>Complex Numbers</option>
+
+</select>
+
+
+<button onclick="loadPYQ()">
+🔥 Start JEE Main PYQ
+</button>
+
+</div>
+
+
+
+<!-- TIMER -->
+
+<div class="card">
+
+<h2>⏱️ Custom Timer</h2>
+
+<div class="filters">
+
+<div>
+
+<label>Minutes</label>
+
+<input
+id="minutes"
+type="number"
+min="0"
+max="60"
+value="1"
+style="
+width:100%;
+padding:13px;
+border-radius:10px;
+background:#211b38;
+color:white;
+border:1px solid #4b3b77;
+">
+
+</div>
+
+
+<div>
+
+<label>Seconds</label>
+
+<input
+id="seconds"
+type="number"
+min="0"
+max="59"
+value="0"
+style="
+width:100%;
+padding:13px;
+border-radius:10px;
+background:#211b38;
+color:white;
+border:1px solid #4b3b77;
+">
+
+</div>
+
+</div>
+
+<button onclick="setTimer()">
+⏱️ Set Timer
+</button>
+
+<div class="timer" id="timer">
+01:00
+</div>
+
+<button onclick="enableAlarm()" id="alarmBtn">
+🔔 Enable Alarm
+</button>
+
+</div>
+
+
+
+<!-- QUESTION -->
+
+<div class="card">
+
+<div class="info">
+
+<span id="questionNumber">
+Question 0
+</span>
+
+<span>
+Score: <b id="score">0</b>
+</span>
+
+</div>
+
+
+<div id="questionArea">
+
+<p class="small">
+Select your Year, Subject and Chapter, then start practice.
+</p>
+
+</div>
+
+</div>
+
+
+
+<!-- RESULT -->
+
+<div class="card">
+
+<h2>📊 Your Result</h2>
+
+<p>
+Attempted:
+<b id="attempted">0</b>
+</p>
+
+<p style="margin-top:10px">
+Correct:
+<b id="correct">0</b>
+</p>
+
+
+<!-- ACCURACY LOCK -->
+
+<div class="locked" style="margin-top:18px;padding:18px">
+
+<div class="lock">
+🔒
+</div>
+
+<h3>Accuracy is a PRO Feature</h3>
+
+<p class="small">
+Unlock JEE Hub PRO to see your exact accuracy,
+detailed performance and advanced statistics.
+</p>
+
+<button onclick="location.href='pro.html'">
+⭐ Unlock PRO
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- PRO -->
+
+<div class="card locked">
+
+<h2>⭐ JEE HUB PRO</h2>
+
+<div class="pro">
+₹25/month
+</div>
+
+<p class="small">
+or ₹180 • JEE 2027 Pass
+</p>
+
+<p style="margin-top:15px">
+
+🔒 JEE Advanced Practice<br>
+🔒 Accuracy %<br>
+🔒 Detailed Statistics<br>
+🔒 Advanced Performance Tracking
+
+</p>
+
+<button onclick="location.href='pro.html'">
+View PRO
+</button>
 
 </div>
 
 
 <div class="card">
 
-    <h2>📊 Practice Result</h2>
+<h2>📌 PYQ Source</h2>
 
-    <p style="margin-top:12px">
-        Attempted: <b id="attempted">0</b>
-    </p>
+<p class="small">
 
-    <p style="margin-top:10px">
-        Correct: <b id="correct">0</b>
-    </p>
+Questions should be accessed from the
+official JEE Main/NTA papers or legally
+licensed material.
 
-    <p style="margin-top:10px">
-        Accuracy: <b id="accuracy">0%</b>
-    </p>
+</p>
 
-    <button onclick="finishChapter()">
-        ✅ Finish PYQ
-    </button>
+<div class="source">
+
+<b>Credit / Source</b><br><br>
+
+JEE Main / NTA Official Question Papers
 
 </div>
 
 </div>
+
+
+</div>
+
+
+<footer>
+
+© 2026 JEE Study Hub<br>
+Mentored by Dibyanshu
+
+</footer>
+
 
 
 <script>
 
-/* =========================
-   QUESTION DATA
-========================= */
+
+/* ==============================
+   SAMPLE STRUCTURE
+============================== */
 
 const questionData = {
 
 "Kinematics":[
 
 {
-q:"A particle moves with constant acceleration. Its velocity changes from 10 m/s to 20 m/s in 5 s. What is its acceleration?",
+q:"A particle moves with constant acceleration. Its velocity changes from 10 m/s to 20 m/s in 5 seconds. What is its acceleration?",
 options:[
 "1 m/s²",
 "2 m/s²",
@@ -251,3 +538,632 @@ options:[
 ],
 answer:2
 }
+
+],
+
+"Laws of Motion":[
+
+{
+q:"According to Newton's second law, force is related to:",
+options:[
+"Displacement",
+"Rate of change of momentum",
+"Distance",
+"Time only"
+],
+answer:1
+}
+
+],
+
+"Work, Energy & Power":[
+
+{
+q:"The SI unit of work is:",
+options:[
+"Watt",
+"Joule",
+"Newton",
+"Pascal"
+],
+answer:1
+}
+
+],
+
+"Mole Concept":[
+
+{
+q:"One mole contains approximately:",
+options:[
+"6.022 × 10²³ particles",
+"3.011 × 10²³ particles",
+"9.8 × 10²³ particles",
+"1.602 × 10¹⁹ particles"
+],
+answer:0
+}
+
+],
+
+"Atomic Structure":[
+
+{
+q:"The nucleus of an atom contains:",
+options:[
+"Only electrons",
+"Protons and neutrons",
+"Only neutrons",
+"Electrons only"
+],
+answer:1
+}
+
+],
+
+"Chemical Bonding":[
+
+{
+q:"A covalent bond is generally formed by:",
+options:[
+"Transfer of electrons",
+"Sharing of electrons",
+"Transfer of protons",
+"Sharing of neutrons"
+],
+answer:1
+}
+
+],
+
+"Quadratic Equations":[
+
+{
+q:"The discriminant of ax² + bx + c = 0 is:",
+options:[
+"b² + 4ac",
+"b² - 4ac",
+"a² - 4bc",
+"c² - 4ab"
+],
+answer:1
+}
+
+],
+
+"Trigonometry":[
+
+{
+q:"The value of sin²θ + cos²θ is:",
+options:[
+"0",
+"1",
+"2",
+"sinθ"
+],
+answer:1
+}
+
+],
+
+"Complex Numbers":[
+
+{
+q:"The value of i² is:",
+options:[
+"1",
+"-1",
+"i",
+"0"
+],
+answer:1
+}
+
+]
+
+};
+
+
+
+/* ==============================
+   VARIABLES
+============================== */
+
+let questions=[];
+
+let current=0;
+
+let selected=null;
+
+let score=0;
+
+let attempted=0;
+
+let correct=0;
+
+let timerInterval=null;
+
+let timeLeft=60;
+
+let timerSetting=60;
+
+let alarmEnabled=false;
+
+let answered=false;
+
+
+
+/* ==============================
+   SET TIMER
+============================== */
+
+function setTimer(){
+
+let m=parseInt(
+document.getElementById("minutes").value
+)||0;
+
+let s=parseInt(
+document.getElementById("seconds").value
+)||0;
+
+if(m<0)m=0;
+
+if(s<0)s=0;
+
+if(s>59)s=59;
+
+let total=(m*60)+s;
+
+if(total<1){
+
+alert("Set at least 1 second.");
+
+return;
+
+}
+
+timerSetting=total;
+
+timeLeft=total;
+
+updateTimer();
+
+alert(
+"Timer set to "+formatTime(total)
+);
+
+}
+
+
+
+/* ==============================
+   FORMAT TIME
+============================== */
+
+function formatTime(t){
+
+let m=Math.floor(t/60);
+
+let s=t%60;
+
+return String(m).padStart(2,"0")
++":"+
+String(s).padStart(2,"0");
+
+}
+
+
+
+/* ==============================
+   UPDATE TIMER
+============================== */
+
+function updateTimer(){
+
+document.getElementById("timer")
+.innerText=
+formatTime(timeLeft);
+
+}
+
+
+
+/* ==============================
+   ALARM
+============================== */
+
+function enableAlarm(){
+
+alarmEnabled=true;
+
+let btn=document.getElementById("alarmBtn");
+
+btn.innerText="🔔 Alarm Enabled";
+
+btn.style.background="#16a34a";
+
+}
+
+
+
+function playAlarm(){
+
+if(!alarmEnabled)return;
+
+try{
+
+const AudioContext=
+window.AudioContext||
+window.webkitAudioContext;
+
+const ctx=new AudioContext();
+
+const oscillator=
+ctx.createOscillator();
+
+const gain=
+ctx.createGain();
+
+oscillator.frequency.value=850;
+
+gain.gain.value=.25;
+
+oscillator.connect(gain);
+
+gain.connect(ctx.destination);
+
+oscillator.start();
+
+oscillator.stop(
+ctx.currentTime+.8
+);
+
+}catch(e){}
+
+}
+
+
+
+/* ==============================
+   LOAD PYQ
+============================== */
+
+function loadPYQ(){
+
+clearInterval(timerInterval);
+
+let chapter=
+document.getElementById("chapter").value;
+
+questions=
+questionData[chapter]||[];
+
+current=0;
+
+score=0;
+
+attempted=0;
+
+correct=0;
+
+selected=null;
+
+answered=false;
+
+document.getElementById("score").innerText=0;
+
+document.getElementById("attempted").innerText=0;
+
+document.getElementById("correct").innerText=0;
+
+loadQuestion();
+
+}
+
+
+
+/* ==============================
+   LOAD QUESTION
+============================== */
+
+function loadQuestion(){
+
+if(!questions.length){
+
+document.getElementById("questionArea")
+.innerHTML=
+"<p>No questions available for this chapter yet.</p>";
+
+return;
+
+}
+
+answered=false;
+
+selected=null;
+
+document.getElementById("questionNumber")
+.innerText=
+"Question "+
+(current+1)+
+" / "+
+questions.length;
+
+
+let q=questions[current];
+
+let html=
+'<div class="question">'+
+q.q+
+'</div>'+
+'<div class="options">';
+
+q.options.forEach(
+function(option,index){
+
+html+=
+'<button class="option" '+
+'onclick="selectOption('+
+index+
+',this)">'+
+String.fromCharCode(65+index)+
+". "+
+option+
+'</button>';
+
+});
+
+html+="</div>";
+
+html+=
+'<button onclick="submitAnswer()" id="submitBtn">'+
+"Submit Answer"+
+"</button>";
+
+html+=
+'<button onclick="nextQuestion()" id="nextBtn" disabled>'+
+"Next →"+
+"</button>";
+
+html+=
+'<div class="result" id="result" style="display:none"></div>';
+
+html+=
+'<div class="source">'+
+"Source: JEE Main / NTA Official Paper"+
+"</div>";
+
+document.getElementById("questionArea")
+.innerHTML=html;
+
+startTimer();
+
+}
+
+
+
+/* ==============================
+   SELECT
+============================== */
+
+function selectOption(index,button){
+
+if(answered)return;
+
+selected=index;
+
+document
+.querySelectorAll(".option")
+.forEach(
+function(x){
+x.classList.remove("selected");
+});
+
+button.classList.add("selected");
+
+}
+
+
+
+/* ==============================
+   SUBMIT
+============================== */
+
+function submitAnswer(){
+
+if(answered)return;
+
+if(selected===null){
+
+alert("Select an answer first.");
+
+return;
+
+}
+
+checkAnswer(selected,false);
+
+}
+
+
+
+/* ==============================
+   CHECK
+============================== */
+
+function checkAnswer(choice,timeUp){
+
+answered=true;
+
+clearInterval(timerInterval);
+
+attempted++;
+
+let q=questions[current];
+
+let options=
+document.querySelectorAll(".option");
+
+options.forEach(
+function(x){
+x.disabled=true;
+});
+
+
+let result=
+document.getElementById("result");
+
+result.style.display="block";
+
+
+if(choice===q.answer){
+
+correct++;
+
+score++;
+
+options[q.answer]
+.classList.add("correct");
+
+result.innerHTML=
+"✅ <b>Correct!</b><br>"+
+"Good job!";
+
+}else{
+
+if(choice!==null){
+
+options[choice]
+.classList.add("wrong");
+
+}
+
+options[q.answer]
+.classList.add("correct");
+
+result.innerHTML=
+"❌ <b>Incorrect</b><br>"+
+"Correct answer: "+
+String.fromCharCode(65+q.answer)+
+". "+
+q.options[q.answer];
+
+}
+
+
+if(timeUp){
+
+result.innerHTML+=
+"<br>⏰ Time's up!";
+
+}
+
+document.getElementById("score")
+.innerText=score;
+
+document.getElementById("attempted")
+.innerText=attempted;
+
+document.getElementById("correct")
+.innerText=correct;
+
+document.getElementById("submitBtn")
+.disabled=true;
+
+document.getElementById("nextBtn")
+.disabled=false;
+
+}
+
+
+
+/* ==============================
+   NEXT
+============================== */
+
+function nextQuestion(){
+
+if(!answered)return;
+
+if(current<questions.length-1){
+
+current++;
+
+loadQuestion();
+
+}else{
+
+clearInterval(timerInterval);
+
+document.getElementById("questionArea")
+.innerHTML=
+'<div class="question">'+
+"🎉 All available questions completed!"+
+"</div>"+
+'<p class="small">'+
+"Finish the session to save your progress."+
+"</p>";
+
+}
+
+}
+
+
+
+/* ==============================
+   TIMER START
+============================== */
+
+function startTimer(){
+
+clearInterval(timerInterval);
+
+timeLeft=timerSetting;
+
+let timer=
+document.getElementById("timer");
+
+timer.classList.remove("warning");
+
+updateTimer();
+
+
+timerInterval=setInterval(
+function(){
+
+timeLeft--;
+
+updateTimer();
+
+
+if(timeLeft<=10){
+
+timer.classList.add("warning");
+
+}
+
+
+if(timeLeft<=0){
+
+clearInterval(timerInterval);
+
+timer.innerText="00:00";
+
+playAlarm();
+
+checkAnswer(null,true);
+
+}
+
+},
+1000
+);
+
+}
+
+
+</script>
+
+</body>
+    </html>

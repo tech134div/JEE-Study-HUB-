@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JEE Study Hub - Stats</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#0d0b18;
+    color:white;
+    padding-bottom:40px;
+}
+
+header{
+    text-align:center;
+    padding:25px 15px;
+}
+
+header a{
+    color:#b9a8ff;
+    text-decoration:none;
+}
+
+h1{
+    margin:12px 0;
+    font-size:30px;
+}
+
+.container{
+    max-width:750px;
+    margin:auto;
+    padding:15px;
+}
+
+.card{
+    background:#171329;
+    border:1px solid #30265a;
+    border-radius:20px;
+    padding:22px;
+    margin:16px 0;
+}
+
+.big{
+    text-align:center;
+    font-size:45px;
+    font-weight:bold;
+    color:#c4b5fd;
+    margin:15px 0;
+}
+
+.stat{
+    display:flex;
+    justify-content:space-between;
+    padding:14px 0;
+    border-bottom:1px solid #30265a;
+}
+
+.stat:last-child{
+    border-bottom:0;
+}
+
+.subject{
+    margin:18px 0;
+}
+
+.top{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:7px;
+}
+
+.bar{
+    height:12px;
+    background:#2b2640;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.fill{
+    height:100%;
+    width:0%;
+    background:#8b5cf6;
+    border-radius:20px;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    border:0;
+    border-radius:12px;
+    background:#7c3aed;
+    color:white;
+    font-weight:bold;
+    font-size:16px;
+    margin-top:15px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <a href="index.html">← Back to Home</a>
+    <h1>📊 Your Statistics</h1>
+</header>
+
+<div class="container">
+
+<div class="card">
+
+    <h2>🏆 Overall Progress</h2>
+
+    <div class="big" id="overall">0%</div>
+
+    <div class="stat">
+        <span>Questions Attempted</span>
+        <b id="attempted">0</b>
+    </div>
+
+    <div class="stat">
+        <span>Correct Answers</span>
+        <b id="correct">0</b>
+    </div>
+
+    <div class="stat">
+        <span>Accuracy</span>
+        <b id="accuracy">0%</b>
+    </div>
+
+    <div class="stat">
+        <span>Completed Chapters</span>
+        <b id="completed">0</b>
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <h2>📚 Subject Progress</h2>
+
+    <div class="subject">
+
+        <div class="top">
+            <span>⚡ Physics</span>
+            <b id="physicsText">0%</b>
+        </div>
+
+        <div class="bar">
+            <div class="fill" id="physicsBar"></div>
+        </div>
+
+    </div>
+
+
+    <div class="subject">
+
+        <div class="top">
+            <span>🧪 Chemistry</span>
+            <b id="chemistryText">0%</b>
+        </div>
+
+        <div class="bar">
+            <div class="fill" id="chemistryBar"></div>
+        </div>
+
+    </div>
+
+
+    <div class="subject">
+
+        <div class="top">
+            <span>📐 Mathematics</span>
+            <b id="mathsText">0%</b>
+        </div>
+
+        <div class="bar">
+            <div class="fill" id="mathsBar"></div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <h2>🔥 Practice Performance</h2>
+
+    <div class="stat">
+        <span>Best Score</span>
+        <b id="bestScore">0</b>
+    </div>
+
+    <div class="stat">
+        <span>Total Completed PYQs</span>
+        <b id="pyqCompleted">0</b>
+    </div>
+
+    <div class="stat">
+        <span>Current Streak</span>
+        <b>🔥 0 days</b>
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <h2>💡 Keep Going!</h2>
+
+    <p style="color:#aaa;margin-top:10px;line-height:1.6">
+        Complete Theory + PYQs for every chapter
+        and watch your JEE Study Hub progress grow.
+    </p>
+
+    <button onclick="location.href='chapters.html'">
+        📚 Continue Studying
+    </button>
+
+</div>
+
+</div>
+
+
+<script>
+
+const chapters = {
+
+physics:[
+"physics-kinematics",
+"physics-nlm",
+"physics-wep",
+"physics-rotation"
+],
+
+chemistry:[
+"chem-mole",
+"chem-atomic",
+"chem-periodic",
+"chem-bonding"
+],
+
+maths:[
+"math-sets",
+"math-quadratic",
+"math-sequence",
+"math-trigonometry"
+]
+
+};
+
+
+function subjectProgress(list){
+
+    let completed = 0;
+
+    list.forEach(function(id){
+
+        if(
+            localStorage.getItem(
+                id + "-completed"
+            ) === "true"
+        ){
+            completed++;
+        }
+
+    });
+
+    return Math.round(
+        completed / list.length * 100
+    );
+
+}
+
+
+function update(){
+
+    let physics =
+        subjectProgress(chapters.physics);
+
+    let chemistry =
+        subjectProgress(chapters.chemistry);
+
+    let maths =
+        subjectProgress(chapters.maths);
+
+
+    let overall =
+        Math.round(
+            (physics + chemistry + maths) / 3
+        );
+
+
+    document.getElementById("overall")
+        .innerText =
+        overall + "%";
+
+
+    document.getElementById("physicsText")
+        .innerText =
+        physics + "%";
+
+    document.getElementById("chemistryText")
+        .innerText =
+        chemistry + "%";
+
+    document.getElementById("mathsText")
+        .innerText =
+        maths + "%";
+
+
+    document.getElementById("physicsBar")
+        .style.width =
+        physics + "%";
+
+    document.getElementById("chemistryBar")
+        .style.width =
+        chemistry + "%";
+
+    document.getElementById("mathsBar")
+        .style.width =
+        maths + "%";
+
+
+    let all =
+        chapters.physics
+        .concat(
+            chapters.chemistry,
+            chapters.maths
+        );
+
+    let completed = 0;
+
+    all.forEach(function(id){
+
+        if(
+            localStorage.getItem(
+                id + "-completed"
+            ) === "true"
+        ){
+            completed++;
+        }
+
+    });
+
+
+    document.getElementById("completed")
+        .innerText =
+        completed;
+
+
+    document.getElementById("pyqCompleted")
+        .innerText =
+        all.filter(function(id){
+
+            return localStorage.getItem(
+                id + "-pyq"
+            ) === "true";
+
+        }).length;
+
+
+    document.getElementById("attempted")
+        .innerText =
+        localStorage.getItem(
+            "totalAttempted"
+        ) || 0;
+
+    document.getElementById("correct")
+        .innerText =
+        localStorage.getItem(
+            "totalCorrect"
+        ) || 0;
+
+
+    let attempted =
+        Number(
+            localStorage.getItem(
+                "totalAttempted"
+            )
+        ) || 0;
+
+    let correct =
+        Number(
+            localStorage.getItem(
+                "totalCorrect"
+            )
+        ) || 0;
+
+
+    let accuracy =
+        attempted > 0
+        ? Math.round(
+            correct / attempted * 100
+        )
+        : 0;
+
+
+    document.getElementById("accuracy")
+        .innerText =
+        accuracy + "%";
+
+
+    document.getElementById("bestScore")
+        .innerText =
+        localStorage.getItem(
+            "bestScore"
+        ) || 0;
+
+}
+
+
+update();
+
+</script>
+
+</body>
+              </html>

@@ -245,149 +245,13 @@ select{
 
 </div>
 
-</div>
-
-
 <script>
 
-/*
-    DEMO QUESTION DATA
-
-    Later we will replace these with
-    properly sourced/licensed or original
-    JEE-level questions.
-*/
-
-const questionData = {
-
-"Kinematics":[
-
-{
-q:"A particle moves with constant acceleration. Its velocity changes from 10 m/s to 20 m/s in 5 s. What is its acceleration?",
-options:[
-"1 m/s²",
-"2 m/s²",
-"3 m/s²",
-"4 m/s²"
-],
-answer:1
-},
-
-{
-q:"The slope of a velocity-time graph represents:",
-options:[
-"Displacement",
-"Speed",
-"Acceleration",
-"Distance"
-],
-answer:2
-}
-
-],
-
-"Laws of Motion":[
-
-{
-q:"According to Newton's second law, force is equal to:",
-options:[
-"mv",
-"ma",
-"m/a",
-"a/m"
-],
-answer:1
-}
-
-],
-
-"Work, Energy & Power":[
-
-{
-q:"The kinetic energy of a body of mass m moving with velocity v is:",
-options:[
-"mv",
-"mv²",
-"½mv²",
-"2mv²"
-],
-answer:2
-}
-
-],
-
-"Mole Concept":[
-
-{
-q:"One mole of a substance contains approximately:",
-options:[
-"6.022 × 10²³ particles",
-"6.022 × 10²² particles",
-"3.011 × 10²³ particles",
-"1.602 × 10¹⁹ particles"
-],
-answer:0
-}
-
-],
-
-"Atomic Structure":[
-
-{
-q:"The charge of an electron is:",
-options:[
-"Positive",
-"Negative",
-"Neutral",
-"Variable"
-],
-answer:1
-}
-
-],
-
-"Quadratic Equations":[
-
-{
-q:"For ax² + bx + c = 0, the discriminant is:",
-options:[
-"b² + 4ac",
-"b² − 4ac",
-"4ac − b²",
-"a² − 4bc"
-],
-answer:1
-}
-
-],
-
-"Trigonometry":[
-
-{
-q:"Which identity is correct?",
-options:[
-"sin²θ + cos²θ = 1",
-"sin²θ − cos²θ = 1",
-"sinθ + cosθ = 1",
-"tan²θ + cos²θ = 1"
-],
-answer:0
-}
-
-]
-
-};
-
-
 let chapter =
-localStorage.getItem("selectedChapter")
-|| "Kinematics";
-
+    localStorage.getItem("selectedChapter") || "Kinematics";
 
 let questions =
-questionData[chapter]
-|| questionData["Kinematics"];
-
+    questionData[chapter] || questionData["Kinematics"];
 
 let current = 0;
 let score = 0;
@@ -398,24 +262,113 @@ let selected = null;
 let timeLeft = 60;
 let timerInterval = null;
 let answered = false;
+let alarmEnabled = false;
+let audioContext = null;
 
 
-const select =
-document.getElementById("chapterSelect");
+/* 🔔 Enable alarm */
 
-if(questionData[chapter]){
-    select.value = chapter;
+function enableAlarm(){
+
+    try{
+        audioContext =
+            new (window.AudioContext ||
+            window.webkitAudioContext)();
+
+        if(audioContext.state === "suspended"){
+            audioContext.resume();
+        }
+
+        alarmEnabled = true;
+
+        document.getElementById("alarmBtn")
+        .innerText = "🔔 Alarm Enabled";
+
+        document.getElementById("alarmBtn")
+        .style.background = "#16a34a";
+
+        // Small test beep
+        playBeep(700,150);
+
+    }catch(error){
+
+        alert("Please allow sound in your browser.");
+
+    }
 }
 
+
+/* 🔊 Generate beep */
+
+function playBeep(frequency,duration){
+
+    if(!alarmEnabled || !audioContext) return;
+
+    let oscillator =
+        audioContext.createOscillator();
+
+    let gain =
+        audioContext.createGain();
+
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
+
+    oscillator.frequency.value =
+        frequency;
+
+    oscillator.type = "sine";
+
+    gain.gain.setValueAtTime(
+        0.25,
+        audioContext.currentTime
+    );
+
+    oscillator.start();
+
+    oscillator.stop(
+        audioContext.currentTime +
+        duration / 1000
+    );
+}
+
+
+/* 🚨 Alarm */
+
+function playAlarm(){
+
+    if(!alarmEnabled) return;
+
+    let count = 0;
+
+    let alarm =
+        setInterval(function(){
+
+            playBeep(900,250);
+
+            setTimeout(function(){
+                playBeep(600,250);
+            },300);
+
+            count++;
+
+            if(count >= 5){
+                clearInterval(alarm);
+            }
+
+        },700);
+}
+
+
+/* Load questions */
 
 function loadQuestions(){
 
     chapter =
-        select.value;
+        document.getElementById("chapterSelect").value;
 
     questions =
-        questionData[chapter]
-        || questionData["Kinematics"];
+        questionData[chapter] ||
+        questionData["Kinematics"];
 
     current = 0;
     score = 0;
@@ -424,9 +377,10 @@ function loadQuestions(){
 
     showQuestion();
     updateStats();
-
 }
 
+
+/* Show question */
 
 function showQuestion(){
 
@@ -434,25 +388,24 @@ function showQuestion(){
 
     selected = null;
     answered = false;
-
     timeLeft = 60;
 
     document.getElementById("questionNumber")
     .innerText =
-    "Question " +
-    (current + 1) +
-    " / " +
-    questions.length;
+        "Question " +
+        (current + 1) +
+        " / " +
+        questions.length;
+
+    document.getElementById("question")
+    .innerText =
+        questions[current].q;
 
     document.getElementById("score")
     .innerText = score;
 
-    document.getElementById("question")
-    .innerText =
-    questions[current].q;
-
     let optionsBox =
-    document.getElementById("options");
+        document.getElementById("options");
 
     optionsBox.innerHTML = "";
 
@@ -460,22 +413,20 @@ function showQuestion(){
     .forEach(function(option,index){
 
         let button =
-        document.createElement("button");
+            document.createElement("button");
 
         button.className = "option";
 
-        button.innerText =
-        option;
+        button.innerText = option;
 
         button.onclick =
-        function(){
-            selectOption(index);
-        };
+            function(){
+                selectOption(index);
+            };
 
         optionsBox.appendChild(button);
 
     });
-
 
     document.getElementById("submitBtn")
     .disabled = false;
@@ -489,59 +440,57 @@ function showQuestion(){
     showTimer();
 
     timerInterval =
-    setInterval(function(){
+        setInterval(function(){
 
-        timeLeft--;
+            timeLeft--;
 
-        showTimer();
+            showTimer();
 
-        if(timeLeft <= 0){
+            if(timeLeft <= 0){
 
-            clearInterval(timerInterval);
+                clearInterval(timerInterval);
 
-            if(!answered){
-
-                timeUp();
+                if(!answered){
+                    timeUp();
+                }
 
             }
 
-        }
-
-    },1000);
-
+        },1000);
 }
 
+
+/* Timer display */
 
 function showTimer(){
 
     let minutes =
-    Math.floor(timeLeft / 60);
+        Math.floor(timeLeft / 60);
 
     let seconds =
-    timeLeft % 60;
+        timeLeft % 60;
 
-    let text =
-    String(minutes).padStart(2,"0")
-    + ":" +
-    String(seconds).padStart(2,"0");
-
-    let timer =
-    document.getElementById("timer");
-
-    timer.innerText = text;
+    document.getElementById("timer")
+    .innerText =
+        String(minutes).padStart(2,"0") +
+        ":" +
+        String(seconds).padStart(2,"0");
 
     if(timeLeft <= 10){
 
-        timer.classList.add("warning");
+        document.getElementById("timer")
+        .classList.add("warning");
 
     }else{
 
-        timer.classList.remove("warning");
+        document.getElementById("timer")
+        .classList.remove("warning");
 
     }
-
 }
 
+
+/* Select answer */
 
 function selectOption(index){
 
@@ -558,9 +507,10 @@ function selectOption(index){
         );
 
     });
-
 }
 
+
+/* Submit */
 
 function submitAnswer(){
 
@@ -571,13 +521,13 @@ function submitAnswer(){
         alert("Please select an answer first!");
 
         return;
-
     }
 
     checkAnswer();
-
 }
 
+
+/* Check answer */
 
 function checkAnswer(){
 
@@ -588,51 +538,44 @@ function checkAnswer(){
     attempted++;
 
     let question =
-    questions[current];
+        questions[current];
 
     let buttons =
-    document.querySelectorAll(".option");
+        document.querySelectorAll(".option");
 
     buttons.forEach(function(button,i){
 
         if(i === question.answer){
-
             button.classList.add("correct");
-
         }
 
         if(
             i === selected &&
             selected !== question.answer
         ){
-
             button.classList.add("wrong");
-
         }
 
     });
 
-
     if(selected === question.answer){
 
         score++;
-
         correct++;
 
         document.getElementById("result")
         .innerHTML =
-        "🎉 Correct!";
+            "🎉 Correct!";
 
     }else{
 
         document.getElementById("result")
         .innerHTML =
-        "❌ Incorrect. The correct answer is <b>" +
-        question.options[question.answer] +
-        "</b>";
+            "❌ Incorrect. Correct answer: <b>" +
+            question.options[question.answer] +
+            "</b>";
 
     }
-
 
     document.getElementById("submitBtn")
     .disabled = true;
@@ -641,9 +584,10 @@ function checkAnswer(){
     .disabled = false;
 
     updateStats();
-
 }
 
+
+/* ⏰ Time up */
 
 function timeUp(){
 
@@ -652,19 +596,20 @@ function timeUp(){
     attempted++;
 
     let question =
-    questions[current];
+        questions[current];
 
     let buttons =
-    document.querySelectorAll(".option");
+        document.querySelectorAll(".option");
 
     buttons[question.answer]
-    .classList.add("correct");
+        .classList.add("correct");
 
     document.getElementById("result")
     .innerHTML =
-    "⏰ Time's up! Correct answer: <b>" +
-    question.options[question.answer] +
-    "</b>";
+        "⏰ <b>Time's Up!</b><br>" +
+        "Correct answer: <b>" +
+        question.options[question.answer] +
+        "</b>";
 
     document.getElementById("submitBtn")
     .disabled = true;
@@ -674,11 +619,15 @@ function timeUp(){
 
     updateStats();
 
-    // Browser alert acts as the basic alarm.
-    alert("⏰ Time's up!");
+    // 🔔 Actual alarm sound
+    playAlarm();
 
+    // Visual backup
+    alert("⏰ Time's Up!");
 }
 
+
+/* Next question */
 
 function nextQuestion(){
 
@@ -693,25 +642,33 @@ function nextQuestion(){
         finishPractice();
 
     }
-
 }
 
+
+/* Finish practice */
 
 function finishPractice(){
 
     clearInterval(timerInterval);
 
     let accuracy =
-    attempted > 0
-    ? Math.round(correct / attempted * 100)
-    : 0;
+        attempted > 0
+        ? Math.round(
+            correct / attempted * 100
+          )
+        : 0;
 
     document.getElementById("question")
     .innerHTML =
-    "🏁 Practice Complete!<br><br>" +
-    "Score: " + score +
-    " / " + questions.length +
-    "<br>Accuracy: " + accuracy + "%";
+        "🏁 Practice Complete!<br><br>" +
+        "Score: " +
+        score +
+        " / " +
+        questions.length +
+        "<br><br>" +
+        "Accuracy: " +
+        accuracy +
+        "%";
 
     document.getElementById("options")
     .innerHTML = "";
@@ -721,39 +678,38 @@ function finishPractice(){
 
     document.getElementById("nextBtn")
     .disabled = true;
-
 }
 
+
+/* Statistics */
 
 function updateStats(){
 
     document.getElementById("score")
-    .innerText = score;
+        .innerText = score;
 
     document.getElementById("attempted")
-    .innerText = attempted;
+        .innerText = attempted;
 
     document.getElementById("correct")
-    .innerText = correct;
+        .innerText = correct;
 
     let accuracy =
-    attempted > 0
-    ? Math.round(correct / attempted * 100)
-    : 0;
+        attempted > 0
+        ? Math.round(
+            correct / attempted * 100
+          )
+        : 0;
 
     document.getElementById("accuracy")
-    .innerText =
-    accuracy + "%";
-
+        .innerText =
+            accuracy + "%";
 }
 
 
-function finishChapter(){
+/* Finish chapter */
 
-    /*
-       PYQ is considered complete after
-       the student finishes the question set.
-    */
+function finishChapter(){
 
     let idMap = {
 
@@ -770,7 +726,7 @@ function finishChapter(){
     };
 
     let id =
-    idMap[chapter];
+        idMap[chapter];
 
     if(id){
 
@@ -780,20 +736,49 @@ function finishChapter(){
         );
 
         alert(
-            "🔥 PYQ completed! Now go back to Chapters."
+            "🔥 PYQ completed!"
         );
 
         location.href =
-        "chapters.html";
-
+            "chapters.html";
     }
-
 }
+
+
+/* Start */
+
+let select =
+    document.getElementById("chapterSelect");
+
+if(questionData[chapter]){
+    select.value = chapter;
+}
+
+
+/*
+   Add alarm button automatically
+*/
+
+let alarmButton =
+    document.createElement("button");
+
+alarmButton.id = "alarmBtn";
+
+alarmButton.innerText =
+    "🔔 Enable Alarm";
+
+alarmButton.onclick =
+    enableAlarm;
+
+document.querySelector(".card")
+    .insertBefore(
+        alarmButton,
+        document.querySelector(".timer")
+    );
 
 
 showQuestion();
 
 </script>
-
 </body>
   </html>

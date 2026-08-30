@@ -3,16 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>JEE Study Hub - Theory</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
 
 body{
     font-family:Arial,sans-serif;
     background:#0d0b18;
     color:white;
-    padding-bottom:40px;
+    padding-bottom:50px;
 }
 
 header{
@@ -65,7 +70,7 @@ ul{
     padding:15px;
     border-radius:10px;
     margin:12px 0;
-    font-size:18px;
+    font-size:17px;
 }
 
 button{
@@ -79,8 +84,455 @@ button{
     margin-top:15px;
 }
 
-.complete{
-    background:#16a34a;
+button:hover{
+    background:#8b5cf6;
 }
 
-.lock
+.complete{
+    background:#16a34a;
+    width:100%;
+}
+
+.completed{
+    background:#15803d;
+}
+
+.back{
+    background:#4c3a91;
+    width:100%;
+}
+
+.chapter-title{
+    text-align:center;
+    color:#c4b5fd;
+}
+
+.note{
+    color:#888;
+    font-size:13px;
+    text-align:center;
+    margin-top:12px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<a href="chapters.html">← Back to Chapters</a>
+
+<h1>📖 Theory</h1>
+
+</header>
+
+
+<div class="container">
+
+
+<div class="card">
+
+<h1 class="chapter-title" id="chapterName">
+Loading...
+</h1>
+
+<p style="text-align:center;margin-top:8px;">
+JEE Study Hub Theory
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h2>📌 Core Concepts</h2>
+
+<p>
+Understand the fundamental concepts of this chapter before
+moving to problem solving. Focus on definitions, important
+principles, graphs, assumptions and standard results.
+</p>
+
+
+<h2>🧠 Important Points</h2>
+
+<ul>
+<li>Understand the basic definitions and terminology.</li>
+<li>Learn the important concepts and their applications.</li>
+<li>Identify common mistakes and confusing cases.</li>
+<li>Revise important results before attempting PYQs.</li>
+</ul>
+
+
+<h2>📐 Important Formulae</h2>
+
+<div class="formula">
+Important formulas for this chapter will be added here.
+</div>
+
+<div class="formula">
+Keep your formula sheet beside you during revision.
+</div>
+
+
+<h2>🎯 JEE Focus</h2>
+
+<p>
+After completing the theory, solve the chapter's PYQs.
+Pay special attention to repeated concepts and questions
+that test the same underlying idea in different ways.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h2>✅ Theory Completion</h2>
+
+<p>
+Finished studying this chapter?
+Mark the theory as complete. You can then continue with
+the PYQ practice.
+</p>
+
+<button
+    id="completeButton"
+    class="complete"
+    onclick="completeTheory()">
+    ✅ Mark Theory Complete
+</button>
+
+<p class="note" id="message"></p>
+
+</div>
+
+
+<div class="card">
+
+<button
+    class="back"
+    onclick="location.href='chapters.html'">
+    📚 Back to Chapters
+</button>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =================================
+   GET SELECTED CHAPTER
+================================= */
+
+let chapter =
+    localStorage.getItem("selectedChapter");
+
+
+if(!chapter){
+
+    chapter = "Unknown Chapter";
+
+}
+
+
+/* Show chapter name */
+
+document.getElementById("chapterName")
+.innerText = chapter;
+
+
+/* =================================
+   FIND CHAPTER ID
+================================= */
+
+function getChapterId(name){
+
+    const ids = {
+
+        "Units and Measurements":
+            "physics-units",
+
+        "Kinematics":
+            "physics-kinematics",
+
+        "Laws of Motion":
+            "physics-nlm",
+
+        "Work, Energy & Power":
+            "physics-wep",
+
+        "System of Particles & Centre of Mass":
+            "physics-com",
+
+        "Rotational Motion":
+            "physics-rotation",
+
+        "Gravitation":
+            "physics-gravitation",
+
+        "Properties of Bulk Matter":
+            "physics-bulk",
+
+        "Thermodynamics":
+            "physics-thermo",
+
+        "Kinetic Theory":
+            "physics-ktg",
+
+        "Oscillations":
+            "physics-shm",
+
+        "Waves":
+            "physics-waves",
+
+        "Electrostatics":
+            "physics-electrostatics",
+
+        "Current Electricity":
+            "physics-current",
+
+        "Magnetic Effects of Current & Magnetism":
+            "physics-magnetism",
+
+        "EMI & Alternating Current":
+            "physics-emi",
+
+        "Electromagnetic Waves":
+            "physics-emwaves",
+
+        "Ray Optics":
+            "physics-rayoptics",
+
+        "Wave Optics":
+            "physics-waveoptics",
+
+        "Dual Nature":
+            "physics-dual",
+
+        "Atoms":
+            "physics-atoms",
+
+        "Nuclei":
+            "physics-nuclei",
+
+        "Semiconductor Electronics":
+            "physics-semiconductor",
+
+        "Mole Concept":
+            "chem-mole",
+
+        "Atomic Structure":
+            "chem-atomic",
+
+        "Periodic Classification":
+            "chem-periodic",
+
+        "Chemical Bonding":
+            "chem-bonding",
+
+        "Chemical Thermodynamics":
+            "chem-thermo",
+
+        "Equilibrium":
+            "chem-equilibrium",
+
+        "Redox Reactions & Electrochemistry":
+            "chem-redox",
+
+        "Solutions":
+            "chem-solutions",
+
+        "Chemical Kinetics":
+            "chem-kinetics",
+
+        "Organic Chemistry Basic Principles":
+            "chem-goc",
+
+        "Hydrocarbons":
+            "chem-hydrocarbons",
+
+        "Haloalkanes & Haloarenes":
+            "chem-halo",
+
+        "Alcohols Phenols Ethers":
+            "chem-ape",
+
+        "Aldehydes Ketones Carboxylic Acids":
+            "chem-akca",
+
+        "Amines":
+            "chem-amines",
+
+        "Biomolecules":
+            "chem-biomolecules",
+
+        "Coordination Compounds":
+            "chem-coordination",
+
+        "Sets, Relations & Functions":
+            "math-sets",
+
+        "Quadratic Equations":
+            "math-quadratic",
+
+        "Sequence & Series":
+            "math-sequence",
+
+        "Trigonometry":
+            "math-trigonometry",
+
+        "Complex Numbers":
+            "math-complex",
+
+        "Permutations & Combinations":
+            "math-pnc",
+
+        "Binomial Theorem":
+            "math-binomial",
+
+        "Straight Lines":
+            "math-straight",
+
+        "Circle":
+            "math-circle",
+
+        "Conic Sections":
+            "math-conics",
+
+        "LCD":
+            "math-lcd",
+
+        "Application of Derivatives":
+            "math-aod",
+
+        "Integral Calculus":
+            "math-integral",
+
+        "Differential Equations":
+            "math-de",
+
+        "Vector Algebra":
+            "math-vector",
+
+        "Three Dimensional Geometry":
+            "math-3d",
+
+        "Probability":
+            "math-probability",
+
+        "Statistics":
+            "math-statistics"
+
+    };
+
+    return ids[name] || null;
+}
+
+
+let chapterId =
+    getChapterId(chapter);
+
+
+/* =================================
+   CHECK EXISTING STATUS
+================================= */
+
+function checkStatus(){
+
+    if(!chapterId) return;
+
+
+    let completed =
+        localStorage.getItem(
+            chapterId + "-theory"
+        ) === "true";
+
+
+    let button =
+        document.getElementById(
+            "completeButton"
+        );
+
+
+    let message =
+        document.getElementById(
+            "message"
+        );
+
+
+    if(completed){
+
+        button.innerText =
+            "✅ Theory Completed";
+
+        button.classList.add(
+            "completed"
+        );
+
+        message.innerText =
+            "Great! Now you can move to PYQ practice.";
+
+    }
+
+}
+
+
+/* =================================
+   COMPLETE THEORY
+================================= */
+
+function completeTheory(){
+
+    if(!chapterId){
+
+        alert(
+            "Chapter could not be identified."
+        );
+
+        return;
+    }
+
+
+    localStorage.setItem(
+        chapterId + "-theory",
+        "true"
+    );
+
+
+    let button =
+        document.getElementById(
+            "completeButton"
+        );
+
+
+    button.innerText =
+        "✅ Theory Completed";
+
+
+    button.classList.add(
+        "completed"
+    );
+
+
+    document.getElementById(
+        "message"
+    ).innerText =
+        "Theory saved! 🔥 Now solve the PYQs.";
+
+
+    alert(
+        "📖 Theory completed!"
+    );
+
+}
+
+
+checkStatus();
+
+</script>
+
+</body>
+    </html>

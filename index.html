@@ -2,159 +2,165 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>JEE Study Hub</title>
 
 <style>
 
 *{
-box-sizing:border-box;
-margin:0;
-padding:0;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
 body{
-font-family:Arial,sans-serif;
-background:#0d0b18;
-color:white;
-min-height:100vh;
+    font-family:Arial,sans-serif;
+    background:#0d0b18;
+    color:white;
+    min-height:100vh;
 }
 
 header{
-text-align:center;
-padding:35px 15px 20px;
+    text-align:center;
+    padding:35px 15px 20px;
 }
 
 .logo{
-width:130px;
-height:130px;
-object-fit:contain;
-border-radius:50%;
+    width:130px;
+    height:130px;
+    object-fit:contain;
+    border-radius:50%;
+    display:block;
+    margin:0 auto;
 }
 
 h1{
-font-size:34px;
-margin-top:12px;
+    font-size:34px;
+    margin-top:12px;
 }
 
 .tagline{
-color:#b9a8ff;
-margin-top:6px;
-font-size:15px;
+    color:#b9a8ff;
+    margin-top:6px;
+    font-size:15px;
 }
 
 .mentor{
-margin-top:10px;
-color:#d7ceff;
-font-size:16px;
+    margin-top:10px;
+    color:#d7ceff;
+    font-size:16px;
 }
 
 .container{
-max-width:700px;
-margin:auto;
-padding:15px;
+    max-width:700px;
+    margin:auto;
+    padding:15px;
 }
 
 .card{
-background:#171329;
-border:1px solid #30265a;
-border-radius:20px;
-padding:22px;
-margin:16px 0;
+    background:#171329;
+    border:1px solid #30265a;
+    border-radius:20px;
+    padding:22px;
+    margin:16px 0;
 }
 
 .card h2{
-margin-bottom:15px;
+    margin-bottom:15px;
 }
 
 .progress-box{
-margin:15px 0;
+    margin:15px 0;
 }
 
 .progress-top{
-display:flex;
-justify-content:space-between;
-margin-bottom:7px;
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:7px;
 }
 
 .bar{
-height:12px;
-background:#2b2640;
-border-radius:20px;
-overflow:hidden;
+    height:12px;
+    background:#2b2640;
+    border-radius:20px;
+    overflow:hidden;
 }
 
 .fill{
-height:100%;
-width:0%;
-background:#8b5cf6;
-border-radius:20px;
-transition:width .4s;
+    height:100%;
+    width:0%;
+    background:#8b5cf6;
+    border-radius:20px;
+    transition:width .4s;
 }
 
 .buttons{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
-margin-top:15px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-top:15px;
 }
 
 button{
-border:0;
-border-radius:14px;
-padding:15px;
-background:#7c3aed;
-color:white;
-font-size:16px;
-font-weight:bold;
-cursor:pointer;
+    border:0;
+    border-radius:14px;
+    padding:15px;
+    background:#7c3aed;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
 }
 
 button:hover{
-background:#8b5cf6;
+    background:#8b5cf6;
 }
 
 .stat{
-display:flex;
-justify-content:space-between;
-padding:12px 0;
-border-bottom:1px solid #2b2640;
+    display:flex;
+    justify-content:space-between;
+    padding:12px 0;
+    border-bottom:1px solid #2b2640;
 }
 
 .stat:last-child{
-border-bottom:0;
+    border-bottom:0;
 }
 
 .pro{
-border:1px solid #8b5cf6;
-text-align:center;
+    border:1px solid #8b5cf6;
+    text-align:center;
 }
 
 .price{
-font-size:28px;
-font-weight:bold;
-margin:10px 0;
+    font-size:28px;
+    font-weight:bold;
+    margin:10px 0;
 }
 
 .small{
-color:#aaa;
-font-size:14px;
+    color:#aaa;
+    font-size:14px;
 }
 
 footer{
-text-align:center;
-padding:30px 15px;
-color:#777;
-font-size:13px;
+    text-align:center;
+    padding:30px 15px;
+    color:#777;
+    font-size:13px;
+}
+
+@media(max-width:500px){
+
+    .buttons{
+        grid-template-columns:1fr;
+    }
+
 }
 
 </style>
-
 </head>
 
 
@@ -163,22 +169,24 @@ font-size:13px;
 
 <header>
 
+<!-- YOUR ACTUAL LOGO -->
+
 <img
-src="logo.png"
-class="logo"
-alt="JEE Study Hub Logo"
+    src="file_000000008f248208a302f6beb1be0167.png"
+    class="logo"
+    alt="JEE Study Hub Logo"
 >
 
 <h1>
-JEE STUDY HUB
+    JEE STUDY HUB
 </h1>
 
 <p class="tagline">
-STUDY • PRACTICE • IMPROVE
+    STUDY • PRACTICE • IMPROVE
 </p>
 
 <p class="mentor">
-🎓 Mentored by <b>Dibyanshu</b>
+    🎓 Mentored by <b>Dibyanshu</b>
 </p>
 
 </header>
@@ -189,7 +197,7 @@ STUDY • PRACTICE • IMPROVE
 
 
 <!-- =========================
-     PROGRESS
+     YOUR PROGRESS
 ========================= -->
 
 <div class="card">
@@ -202,24 +210,12 @@ STUDY • PRACTICE • IMPROVE
 <div class="progress-box">
 
 <div class="progress-top">
-
-<span>
-Overall
-</span>
-
-<b id="overall">
-0%
-</b>
-
+<span>Overall</span>
+<b id="overall">0%</b>
 </div>
 
 <div class="bar">
-
-<div
-class="fill"
-id="overallBar">
-</div>
-
+<div class="fill" id="overallBar"></div>
 </div>
 
 </div>
@@ -229,24 +225,12 @@ id="overallBar">
 <div class="progress-box">
 
 <div class="progress-top">
-
-<span>
-⚡ Physics
-</span>
-
-<b id="physics">
-0%
-</b>
-
+<span>⚡ Physics</span>
+<b id="physics">0%</b>
 </div>
 
 <div class="bar">
-
-<div
-class="fill"
-id="physicsBar">
-</div>
-
+<div class="fill" id="physicsBar"></div>
 </div>
 
 </div>
@@ -256,24 +240,12 @@ id="physicsBar">
 <div class="progress-box">
 
 <div class="progress-top">
-
-<span>
-🧪 Chemistry
-</span>
-
-<b id="chemistry">
-0%
-</b>
-
+<span>🧪 Chemistry</span>
+<b id="chemistry">0%</b>
 </div>
 
 <div class="bar">
-
-<div
-class="fill"
-id="chemistryBar">
-</div>
-
+<div class="fill" id="chemistryBar"></div>
 </div>
 
 </div>
@@ -283,24 +255,12 @@ id="chemistryBar">
 <div class="progress-box">
 
 <div class="progress-top">
-
-<span>
-📐 Mathematics
-</span>
-
-<b id="maths">
-0%
-</b>
-
+<span>📐 Mathematics</span>
+<b id="maths">0%</b>
 </div>
 
 <div class="bar">
-
-<div
-class="fill"
-id="mathsBar">
-</div>
-
+<div class="fill" id="mathsBar"></div>
 </div>
 
 </div>
@@ -414,29 +374,23 @@ Questions Today
 Unlock advanced preparation tools.
 </p>
 
-
 <div class="price">
 ₹25/month
 </div>
-
 
 <p class="small">
 OR
 </p>
 
-
 <div class="price">
 ₹180
 </div>
-
 
 <p class="small">
 JEE 2027 Pass • One-time
 </p>
 
-
 <br>
-
 
 <button onclick="location.href='pro.html'">
 View PRO Features
@@ -452,7 +406,6 @@ View PRO Features
 <footer>
 
 © 2026 JEE Study Hub<br>
-
 Mentored by Dibyanshu
 
 </footer>
@@ -463,102 +416,62 @@ Mentored by Dibyanshu
 
 function loadProgress(){
 
-let physics=
-Number(
-localStorage.getItem(
-"physicsProgress"
-)
-)||0;
+    let physics =
+        Number(
+            localStorage.getItem("physicsProgress")
+        ) || 0;
+
+    let chemistry =
+        Number(
+            localStorage.getItem("chemistryProgress")
+        ) || 0;
+
+    let maths =
+        Number(
+            localStorage.getItem("mathsProgress")
+        ) || 0;
 
 
-let chemistry=
-Number(
-localStorage.getItem(
-"chemistryProgress"
-)
-)||0;
+    let overall =
+        Math.round(
+            (physics + chemistry + maths) / 3
+        );
 
 
-let maths=
-Number(
-localStorage.getItem(
-"mathsProgress"
-)
-)||0;
+    document.getElementById("physics").innerText =
+        physics + "%";
+
+    document.getElementById("chemistry").innerText =
+        chemistry + "%";
+
+    document.getElementById("maths").innerText =
+        maths + "%";
+
+    document.getElementById("overall").innerText =
+        overall + "%";
 
 
-let overall=
-Math.round(
-(
-physics+
-chemistry+
-maths
-)/3
-);
+    document.getElementById("physicsBar").style.width =
+        physics + "%";
 
+    document.getElementById("chemistryBar").style.width =
+        chemistry + "%";
 
+    document.getElementById("mathsBar").style.width =
+        maths + "%";
 
-document.getElementById(
-"physics"
-).innerText=
-physics+"%";
-
-
-document.getElementById(
-"chemistry"
-).innerText=
-chemistry+"%";
-
-
-document.getElementById(
-"maths"
-).innerText=
-maths+"%";
-
-
-document.getElementById(
-"overall"
-).innerText=
-overall+"%";
-
-
-
-document.getElementById(
-"physicsBar"
-).style.width=
-physics+"%";
-
-
-document.getElementById(
-"chemistryBar"
-).style.width=
-chemistry+"%";
-
-
-document.getElementById(
-"mathsBar"
-).style.width=
-maths+"%";
-
-
-document.getElementById(
-"overallBar"
-).style.width=
-overall+"%";
+    document.getElementById("overallBar").style.width =
+        overall + "%";
 
 }
 
 
 loadProgress();
 
-window.addEventListener(
-"pageshow",
-loadProgress
-);
+window.addEventListener("pageshow",loadProgress);
 
 </script>
 
 
 </body>
-
-    </html>
+     </html>

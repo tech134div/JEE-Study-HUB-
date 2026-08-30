@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JEE Study Hub - PYQ</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#0d0b18;
+    color:white;
+    padding-bottom:40px;
+}
+
+header{
+    text-align:center;
+    padding:25px 15px;
+}
+
+header a{
+    color:#b9a8ff;
+    text-decoration:none;
+}
+
+h1{
+    margin:12px 0;
+    font-size:30px;
+}
+
+.container{
+    max-width:750px;
+    margin:auto;
+    padding:15px;
+}
+
+.card{
+    background:#171329;
+    border:1px solid #30265a;
+    border-radius:20px;
+    padding:22px;
+    margin:16px 0;
+}
+
+.question{
+    font-size:19px;
+    line-height:1.6;
+    margin-bottom:20px;
+}
+
+.options{
+    display:grid;
+    gap:10px;
+}
+
+.option{
+    background:#211b38;
+    border:1px solid #3b3260;
+    color:white;
+    padding:14px;
+    border-radius:12px;
+    text-align:left;
+    cursor:pointer;
+}
+
+.option:hover{
+    border-color:#8b5cf6;
+}
+
+.option.selected{
+    border-color:#8b5cf6;
+    background:#302252;
+}
+
+.option.correct{
+    background:#14532d;
+    border-color:#22c55e;
+}
+
+.option.wrong{
+    background:#5f1d2a;
+    border-color:#ef4444;
+}
+
+button{
+    border:0;
+    border-radius:12px;
+    padding:13px 18px;
+    background:#7c3aed;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    margin:6px 4px 0 0;
+}
+
+button:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+}
+
+.timer{
+    text-align:center;
+    font-size:40px;
+    font-weight:bold;
+    color:#c4b5fd;
+    margin:10px 0 20px;
+}
+
+.timer.warning{
+    color:#ef4444;
+}
+
+.info{
+    display:flex;
+    justify-content:space-between;
+    color:#aaa;
+    margin-bottom:15px;
+}
+
+.result{
+    margin-top:18px;
+    padding:15px;
+    border-radius:12px;
+    background:#211b38;
+    line-height:1.6;
+}
+
+select{
+    width:100%;
+    padding:13px;
+    border-radius:10px;
+    border:1px solid #4b3b77;
+    background:#211b38;
+    color:white;
+    font-size:16px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <a href="chapters.html">← Back to Chapters</a>
+    <h1>🔥 PYQ Practice</h1>
+</header>
+
+<div class="container">
+
+<div class="card">
+
+    <h2>📚 Select Chapter</h2>
+
+    <select id="chapterSelect" onchange="loadQuestions()">
+
+        <option value="Kinematics">Kinematics</option>
+        <option value="Laws of Motion">Laws of Motion</option>
+        <option value="Work, Energy & Power">
+            Work, Energy & Power
+        </option>
+
+        <option value="Mole Concept">Mole Concept</option>
+        <option value="Atomic Structure">
+            Atomic Structure
+        </option>
+
+        <option value="Quadratic Equations">
+            Quadratic Equations
+        </option>
+
+        <option value="Trigonometry">
+            Trigonometry
+        </option>
+
+    </select>
+
+</div>
+
+
+<div class="card">
+
+    <div class="info">
+        <span id="questionNumber">
+            Question 1
+        </span>
+
+        <span>
+            Score: <b id="score">0</b>
+        </span>
+    </div>
+
+    <div class="timer" id="timer">
+        01:00
+    </div>
+
+    <div class="question" id="question">
+        Loading question...
+    </div>
+
+    <div class="options" id="options"></div>
+
+    <div>
+
+        <button id="submitBtn"
+        onclick="submitAnswer()">
+            Submit Answer
+        </button>
+
+        <button id="nextBtn"
+        onclick="nextQuestion()"
+        disabled>
+            Next →
+        </button>
+
+    </div>
+
+    <div id="result"></div>
+
+</div>
+
+
+<div class="card">
+
+    <h2>📊 Practice Result</h2>
+
+    <p style="margin-top:12px">
+        Attempted:
+        <b id="attempted">0</b>
+    </p>
+
+    <p style="margin-top:10px">
+        Correct:
+        <b id="correct">0</b>
+    </p>
+
+    <p style="margin-top:10px">
+        Accuracy:
+        <b id="accuracy">0%</b>
+    </p>
+
+    <button onclick="finishChapter()">
+        ✅ Finish PYQ
+    </button>
+
+</div>
+
+</div>
+
+
+<script>
+
+/*
+    DEMO QUESTION DATA
+
+    Later we will replace these with
+    properly sourced/licensed or original
+    JEE-level questions.
+*/
+
+const questionData = {
+
+"Kinematics":[
+
+{
+q:"A particle moves with constant acceleration. Its velocity changes from 10 m/s to 20 m/s in 5 s. What is its acceleration?",
+options:[
+"1 m/s²",
+"2 m/s²",
+"3 m/s²",
+"4 m/s²"
+],
+answer:1
+},
+
+{
+q:"The slope of a velocity-time graph represents:",
+options:[
+"Displacement",
+"Speed",
+"Acceleration",
+"Distance"
+],
+answer:2
+}
+
+],
+
+"Laws of Motion":[
+
+{
+q:"According to Newton's second law, force is equal to:",
+options:[
+"mv",
+"ma",
+"m/a",
+"a/m"
+],
+answer:1
+}
+
+],
+
+"Work, Energy & Power":[
+
+{
+q:"The kinetic energy of a body of mass m moving with velocity v is:",
+options:[
+"mv",
+"mv²",
+"½mv²",
+"2mv²"
+],
+answer:2
+}
+
+],
+
+"Mole Concept":[
+
+{
+q:"One mole of a substance contains approximately:",
+options:[
+"6.022 × 10²³ particles",
+"6.022 × 10²² particles",
+"3.011 × 10²³ particles",
+"1.602 × 10¹⁹ particles"
+],
+answer:0
+}
+
+],
+
+"Atomic Structure":[
+
+{
+q:"The charge of an electron is:",
+options:[
+"Positive",
+"Negative",
+"Neutral",
+"Variable"
+],
+answer:1
+}
+
+],
+
+"Quadratic Equations":[
+
+{
+q:"For ax² + bx + c = 0, the discriminant is:",
+options:[
+"b² + 4ac",
+"b² − 4ac",
+"4ac − b²",
+"a² − 4bc"
+],
+answer:1
+}
+
+],
+
+"Trigonometry":[
+
+{
+q:"Which identity is correct?",
+options:[
+"sin²θ + cos²θ = 1",
+"sin²θ − cos²θ = 1",
+"sinθ + cosθ = 1",
+"tan²θ + cos²θ = 1"
+],
+answer:0
+}
+
+]
+
+};
+
+
+let chapter =
+localStorage.getItem("selectedChapter")
+|| "Kinematics";
+
+
+let questions =
+questionData[chapter]
+|| questionData["Kinematics"];
+
+
+let current = 0;
+let score = 0;
+let attempted = 0;
+let correct = 0;
+let selected = null;
+
+let timeLeft = 60;
+let timerInterval = null;
+let answered = false;
+
+
+const select =
+document.getElementById("chapterSelect");
+
+if(questionData[chapter]){
+    select.value = chapter;
+}
+
+
+function loadQuestions(){
+
+    chapter =
+        select.value;
+
+    questions =
+        questionData[chapter]
+        || questionData["Kinematics"];
+
+    current = 0;
+    score = 0;
+    attempted = 0;
+    correct = 0;
+
+    showQuestion();
+    updateStats();
+
+}
+
+
+function showQuestion(){
+
+    clearInterval(timerInterval);
+
+    selected = null;
+    answered = false;
+
+    timeLeft = 60;
+
+    document.getElementById("questionNumber")
+    .innerText =
+    "Question " +
+    (current + 1) +
+    " / " +
+    questions.length;
+
+    document.getElementById("score")
+    .innerText = score;
+
+    document.getElementById("question")
+    .innerText =
+    questions[current].q;
+
+    let optionsBox =
+    document.getElementById("options");
+
+    optionsBox.innerHTML = "";
+
+    questions[current].options
+    .forEach(function(option,index){
+
+        let button =
+        document.createElement("button");
+
+        button.className = "option";
+
+        button.innerText =
+        option;
+
+        button.onclick =
+        function(){
+            selectOption(index);
+        };
+
+        optionsBox.appendChild(button);
+
+    });
+
+
+    document.getElementById("submitBtn")
+    .disabled = false;
+
+    document.getElementById("nextBtn")
+    .disabled = true;
+
+    document.getElementById("result")
+    .innerHTML = "";
+
+    showTimer();
+
+    timerInterval =
+    setInterval(function(){
+
+        timeLeft--;
+
+        showTimer();
+
+        if(timeLeft <= 0){
+
+            clearInterval(timerInterval);
+
+            if(!answered){
+
+                timeUp();
+
+            }
+
+        }
+
+    },1000);
+
+}
+
+
+function showTimer(){
+
+    let minutes =
+    Math.floor(timeLeft / 60);
+
+    let seconds =
+    timeLeft % 60;
+
+    let text =
+    String(minutes).padStart(2,"0")
+    + ":" +
+    String(seconds).padStart(2,"0");
+
+    let timer =
+    document.getElementById("timer");
+
+    timer.innerText = text;
+
+    if(timeLeft <= 10){
+
+        timer.classList.add("warning");
+
+    }else{
+
+        timer.classList.remove("warning");
+
+    }
+
+}
+
+
+function selectOption(index){
+
+    if(answered) return;
+
+    selected = index;
+
+    document.querySelectorAll(".option")
+    .forEach(function(button,i){
+
+        button.classList.toggle(
+            "selected",
+            i === index
+        );
+
+    });
+
+}
+
+
+function submitAnswer(){
+
+    if(answered) return;
+
+    if(selected === null){
+
+        alert("Please select an answer first!");
+
+        return;
+
+    }
+
+    checkAnswer();
+
+}
+
+
+function checkAnswer(){
+
+    answered = true;
+
+    clearInterval(timerInterval);
+
+    attempted++;
+
+    let question =
+    questions[current];
+
+    let buttons =
+    document.querySelectorAll(".option");
+
+    buttons.forEach(function(button,i){
+
+        if(i === question.answer){
+
+            button.classList.add("correct");
+
+        }
+
+        if(
+            i === selected &&
+            selected !== question.answer
+        ){
+
+            button.classList.add("wrong");
+
+        }
+
+    });
+
+
+    if(selected === question.answer){
+
+        score++;
+
+        correct++;
+
+        document.getElementById("result")
+        .innerHTML =
+        "🎉 Correct!";
+
+    }else{
+
+        document.getElementById("result")
+        .innerHTML =
+        "❌ Incorrect. The correct answer is <b>" +
+        question.options[question.answer] +
+        "</b>";
+
+    }
+
+
+    document.getElementById("submitBtn")
+    .disabled = true;
+
+    document.getElementById("nextBtn")
+    .disabled = false;
+
+    updateStats();
+
+}
+
+
+function timeUp(){
+
+    answered = true;
+
+    attempted++;
+
+    let question =
+    questions[current];
+
+    let buttons =
+    document.querySelectorAll(".option");
+
+    buttons[question.answer]
+    .classList.add("correct");
+
+    document.getElementById("result")
+    .innerHTML =
+    "⏰ Time's up! Correct answer: <b>" +
+    question.options[question.answer] +
+    "</b>";
+
+    document.getElementById("submitBtn")
+    .disabled = true;
+
+    document.getElementById("nextBtn")
+    .disabled = false;
+
+    updateStats();
+
+    // Browser alert acts as the basic alarm.
+    alert("⏰ Time's up!");
+
+}
+
+
+function nextQuestion(){
+
+    if(current < questions.length - 1){
+
+        current++;
+
+        showQuestion();
+
+    }else{
+
+        finishPractice();
+
+    }
+
+}
+
+
+function finishPractice(){
+
+    clearInterval(timerInterval);
+
+    let accuracy =
+    attempted > 0
+    ? Math.round(correct / attempted * 100)
+    : 0;
+
+    document.getElementById("question")
+    .innerHTML =
+    "🏁 Practice Complete!<br><br>" +
+    "Score: " + score +
+    " / " + questions.length +
+    "<br>Accuracy: " + accuracy + "%";
+
+    document.getElementById("options")
+    .innerHTML = "";
+
+    document.getElementById("submitBtn")
+    .disabled = true;
+
+    document.getElementById("nextBtn")
+    .disabled = true;
+
+}
+
+
+function updateStats(){
+
+    document.getElementById("score")
+    .innerText = score;
+
+    document.getElementById("attempted")
+    .innerText = attempted;
+
+    document.getElementById("correct")
+    .innerText = correct;
+
+    let accuracy =
+    attempted > 0
+    ? Math.round(correct / attempted * 100)
+    : 0;
+
+    document.getElementById("accuracy")
+    .innerText =
+    accuracy + "%";
+
+}
+
+
+function finishChapter(){
+
+    /*
+       PYQ is considered complete after
+       the student finishes the question set.
+    */
+
+    let idMap = {
+
+        "Kinematics":"physics-kinematics",
+        "Laws of Motion":"physics-nlm",
+        "Work, Energy & Power":"physics-wep",
+
+        "Mole Concept":"chem-mole",
+        "Atomic Structure":"chem-atomic",
+
+        "Quadratic Equations":"math-quadratic",
+        "Trigonometry":"math-trigonometry"
+
+    };
+
+    let id =
+    idMap[chapter];
+
+    if(id){
+
+        localStorage.setItem(
+            id + "-pyq",
+            "true"
+        );
+
+        alert(
+            "🔥 PYQ completed! Now go back to Chapters."
+        );
+
+        location.href =
+        "chapters.html";
+
+    }
+
+}
+
+
+showQuestion();
+
+</script>
+
+</body>
+  </html>

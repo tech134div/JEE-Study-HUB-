@@ -65,10 +65,6 @@ h1{
     cursor:pointer;
 }
 
-.option:hover{
-    border-color:#8b5cf6;
-}
-
 .option.selected{
     border-color:#8b5cf6;
     background:#302252;
@@ -153,27 +149,18 @@ select{
     <h2>📚 Select Chapter</h2>
 
     <select id="chapterSelect" onchange="loadQuestions()">
-
         <option value="Kinematics">Kinematics</option>
         <option value="Laws of Motion">Laws of Motion</option>
-        <option value="Work, Energy & Power">
-            Work, Energy & Power
-        </option>
-
+        <option value="Work, Energy & Power">Work, Energy & Power</option>
         <option value="Mole Concept">Mole Concept</option>
-        <option value="Atomic Structure">
-            Atomic Structure
-        </option>
-
-        <option value="Quadratic Equations">
-            Quadratic Equations
-        </option>
-
-        <option value="Trigonometry">
-            Trigonometry
-        </option>
-
+        <option value="Atomic Structure">Atomic Structure</option>
+        <option value="Quadratic Equations">Quadratic Equations</option>
+        <option value="Trigonometry">Trigonometry</option>
     </select>
+
+    <button id="alarmBtn" onclick="enableAlarm()">
+        🔔 Enable Alarm
+    </button>
 
 </div>
 
@@ -181,18 +168,11 @@ select{
 <div class="card">
 
     <div class="info">
-        <span id="questionNumber">
-            Question 1
-        </span>
-
-        <span>
-            Score: <b id="score">0</b>
-        </span>
+        <span id="questionNumber">Question 1</span>
+        <span>Score: <b id="score">0</b></span>
     </div>
 
-    <div class="timer" id="timer">
-        01:00
-    </div>
+    <div class="timer" id="timer">01:00</div>
 
     <div class="question" id="question">
         Loading question...
@@ -201,18 +181,13 @@ select{
     <div class="options" id="options"></div>
 
     <div>
-
-        <button id="submitBtn"
-        onclick="submitAnswer()">
+        <button id="submitBtn" onclick="submitAnswer()">
             Submit Answer
         </button>
 
-        <button id="nextBtn"
-        onclick="nextQuestion()"
-        disabled>
+        <button id="nextBtn" onclick="nextQuestion()" disabled>
             Next →
         </button>
-
     </div>
 
     <div id="result"></div>
@@ -225,18 +200,15 @@ select{
     <h2>📊 Practice Result</h2>
 
     <p style="margin-top:12px">
-        Attempted:
-        <b id="attempted">0</b>
+        Attempted: <b id="attempted">0</b>
     </p>
 
     <p style="margin-top:10px">
-        Correct:
-        <b id="correct">0</b>
+        Correct: <b id="correct">0</b>
     </p>
 
     <p style="margin-top:10px">
-        Accuracy:
-        <b id="accuracy">0%</b>
+        Accuracy: <b id="accuracy">0%</b>
     </p>
 
     <button onclick="finishChapter()">
@@ -245,540 +217,37 @@ select{
 
 </div>
 
+</div>
+
+
 <script>
 
-let chapter =
-    localStorage.getItem("selectedChapter") || "Kinematics";
+/* =========================
+   QUESTION DATA
+========================= */
 
-let questions =
-    questionData[chapter] || questionData["Kinematics"];
+const questionData = {
 
-let current = 0;
-let score = 0;
-let attempted = 0;
-let correct = 0;
-let selected = null;
+"Kinematics":[
 
-let timeLeft = 60;
-let timerInterval = null;
-let answered = false;
-let alarmEnabled = false;
-let audioContext = null;
+{
+q:"A particle moves with constant acceleration. Its velocity changes from 10 m/s to 20 m/s in 5 s. What is its acceleration?",
+options:[
+"1 m/s²",
+"2 m/s²",
+"3 m/s²",
+"4 m/s²"
+],
+answer:1
+},
 
-
-/* 🔔 Enable alarm */
-
-function enableAlarm(){
-
-    try{
-        audioContext =
-            new (window.AudioContext ||
-            window.webkitAudioContext)();
-
-        if(audioContext.state === "suspended"){
-            audioContext.resume();
-        }
-
-        alarmEnabled = true;
-
-        document.getElementById("alarmBtn")
-        .innerText = "🔔 Alarm Enabled";
-
-        document.getElementById("alarmBtn")
-        .style.background = "#16a34a";
-
-        // Small test beep
-        playBeep(700,150);
-
-    }catch(error){
-
-        alert("Please allow sound in your browser.");
-
-    }
+{
+q:"The slope of a velocity-time graph represents:",
+options:[
+"Displacement",
+"Speed",
+"Acceleration",
+"Distance"
+],
+answer:2
 }
-
-
-/* 🔊 Generate beep */
-
-function playBeep(frequency,duration){
-
-    if(!alarmEnabled || !audioContext) return;
-
-    let oscillator =
-        audioContext.createOscillator();
-
-    let gain =
-        audioContext.createGain();
-
-    oscillator.connect(gain);
-    gain.connect(audioContext.destination);
-
-    oscillator.frequency.value =
-        frequency;
-
-    oscillator.type = "sine";
-
-    gain.gain.setValueAtTime(
-        0.25,
-        audioContext.currentTime
-    );
-
-    oscillator.start();
-
-    oscillator.stop(
-        audioContext.currentTime +
-        duration / 1000
-    );
-}
-
-
-/* 🚨 Alarm */
-
-function playAlarm(){
-
-    if(!alarmEnabled) return;
-
-    let count = 0;
-
-    let alarm =
-        setInterval(function(){
-
-            playBeep(900,250);
-
-            setTimeout(function(){
-                playBeep(600,250);
-            },300);
-
-            count++;
-
-            if(count >= 5){
-                clearInterval(alarm);
-            }
-
-        },700);
-}
-
-
-/* Load questions */
-
-function loadQuestions(){
-
-    chapter =
-        document.getElementById("chapterSelect").value;
-
-    questions =
-        questionData[chapter] ||
-        questionData["Kinematics"];
-
-    current = 0;
-    score = 0;
-    attempted = 0;
-    correct = 0;
-
-    showQuestion();
-    updateStats();
-}
-
-
-/* Show question */
-
-function showQuestion(){
-
-    clearInterval(timerInterval);
-
-    selected = null;
-    answered = false;
-    timeLeft = 60;
-
-    document.getElementById("questionNumber")
-    .innerText =
-        "Question " +
-        (current + 1) +
-        " / " +
-        questions.length;
-
-    document.getElementById("question")
-    .innerText =
-        questions[current].q;
-
-    document.getElementById("score")
-    .innerText = score;
-
-    let optionsBox =
-        document.getElementById("options");
-
-    optionsBox.innerHTML = "";
-
-    questions[current].options
-    .forEach(function(option,index){
-
-        let button =
-            document.createElement("button");
-
-        button.className = "option";
-
-        button.innerText = option;
-
-        button.onclick =
-            function(){
-                selectOption(index);
-            };
-
-        optionsBox.appendChild(button);
-
-    });
-
-    document.getElementById("submitBtn")
-    .disabled = false;
-
-    document.getElementById("nextBtn")
-    .disabled = true;
-
-    document.getElementById("result")
-    .innerHTML = "";
-
-    showTimer();
-
-    timerInterval =
-        setInterval(function(){
-
-            timeLeft--;
-
-            showTimer();
-
-            if(timeLeft <= 0){
-
-                clearInterval(timerInterval);
-
-                if(!answered){
-                    timeUp();
-                }
-
-            }
-
-        },1000);
-}
-
-
-/* Timer display */
-
-function showTimer(){
-
-    let minutes =
-        Math.floor(timeLeft / 60);
-
-    let seconds =
-        timeLeft % 60;
-
-    document.getElementById("timer")
-    .innerText =
-        String(minutes).padStart(2,"0") +
-        ":" +
-        String(seconds).padStart(2,"0");
-
-    if(timeLeft <= 10){
-
-        document.getElementById("timer")
-        .classList.add("warning");
-
-    }else{
-
-        document.getElementById("timer")
-        .classList.remove("warning");
-
-    }
-}
-
-
-/* Select answer */
-
-function selectOption(index){
-
-    if(answered) return;
-
-    selected = index;
-
-    document.querySelectorAll(".option")
-    .forEach(function(button,i){
-
-        button.classList.toggle(
-            "selected",
-            i === index
-        );
-
-    });
-}
-
-
-/* Submit */
-
-function submitAnswer(){
-
-    if(answered) return;
-
-    if(selected === null){
-
-        alert("Please select an answer first!");
-
-        return;
-    }
-
-    checkAnswer();
-}
-
-
-/* Check answer */
-
-function checkAnswer(){
-
-    answered = true;
-
-    clearInterval(timerInterval);
-
-    attempted++;
-
-    let question =
-        questions[current];
-
-    let buttons =
-        document.querySelectorAll(".option");
-
-    buttons.forEach(function(button,i){
-
-        if(i === question.answer){
-            button.classList.add("correct");
-        }
-
-        if(
-            i === selected &&
-            selected !== question.answer
-        ){
-            button.classList.add("wrong");
-        }
-
-    });
-
-    if(selected === question.answer){
-
-        score++;
-        correct++;
-
-        document.getElementById("result")
-        .innerHTML =
-            "🎉 Correct!";
-
-    }else{
-
-        document.getElementById("result")
-        .innerHTML =
-            "❌ Incorrect. Correct answer: <b>" +
-            question.options[question.answer] +
-            "</b>";
-
-    }
-
-    document.getElementById("submitBtn")
-    .disabled = true;
-
-    document.getElementById("nextBtn")
-    .disabled = false;
-
-    updateStats();
-}
-
-
-/* ⏰ Time up */
-
-function timeUp(){
-
-    answered = true;
-
-    attempted++;
-
-    let question =
-        questions[current];
-
-    let buttons =
-        document.querySelectorAll(".option");
-
-    buttons[question.answer]
-        .classList.add("correct");
-
-    document.getElementById("result")
-    .innerHTML =
-        "⏰ <b>Time's Up!</b><br>" +
-        "Correct answer: <b>" +
-        question.options[question.answer] +
-        "</b>";
-
-    document.getElementById("submitBtn")
-    .disabled = true;
-
-    document.getElementById("nextBtn")
-    .disabled = false;
-
-    updateStats();
-
-    // 🔔 Actual alarm sound
-    playAlarm();
-
-    // Visual backup
-    alert("⏰ Time's Up!");
-}
-
-
-/* Next question */
-
-function nextQuestion(){
-
-    if(current < questions.length - 1){
-
-        current++;
-
-        showQuestion();
-
-    }else{
-
-        finishPractice();
-
-    }
-}
-
-
-/* Finish practice */
-
-function finishPractice(){
-
-    clearInterval(timerInterval);
-
-    let accuracy =
-        attempted > 0
-        ? Math.round(
-            correct / attempted * 100
-          )
-        : 0;
-
-    document.getElementById("question")
-    .innerHTML =
-        "🏁 Practice Complete!<br><br>" +
-        "Score: " +
-        score +
-        " / " +
-        questions.length +
-        "<br><br>" +
-        "Accuracy: " +
-        accuracy +
-        "%";
-
-    document.getElementById("options")
-    .innerHTML = "";
-
-    document.getElementById("submitBtn")
-    .disabled = true;
-
-    document.getElementById("nextBtn")
-    .disabled = true;
-}
-
-
-/* Statistics */
-
-function updateStats(){
-
-    document.getElementById("score")
-        .innerText = score;
-
-    document.getElementById("attempted")
-        .innerText = attempted;
-
-    document.getElementById("correct")
-        .innerText = correct;
-
-    let accuracy =
-        attempted > 0
-        ? Math.round(
-            correct / attempted * 100
-          )
-        : 0;
-
-    document.getElementById("accuracy")
-        .innerText =
-            accuracy + "%";
-}
-
-
-/* Finish chapter */
-
-function finishChapter(){
-
-    let idMap = {
-
-        "Kinematics":"physics-kinematics",
-        "Laws of Motion":"physics-nlm",
-        "Work, Energy & Power":"physics-wep",
-
-        "Mole Concept":"chem-mole",
-        "Atomic Structure":"chem-atomic",
-
-        "Quadratic Equations":"math-quadratic",
-        "Trigonometry":"math-trigonometry"
-
-    };
-
-    let id =
-        idMap[chapter];
-
-    if(id){
-
-        localStorage.setItem(
-            id + "-pyq",
-            "true"
-        );
-
-        alert(
-            "🔥 PYQ completed!"
-        );
-
-        location.href =
-            "chapters.html";
-    }
-}
-
-
-/* Start */
-
-let select =
-    document.getElementById("chapterSelect");
-
-if(questionData[chapter]){
-    select.value = chapter;
-}
-
-
-/*
-   Add alarm button automatically
-*/
-
-let alarmButton =
-    document.createElement("button");
-
-alarmButton.id = "alarmBtn";
-
-alarmButton.innerText =
-    "🔔 Enable Alarm";
-
-alarmButton.onclick =
-    enableAlarm;
-
-document.querySelector(".card")
-    .insertBefore(
-        alarmButton,
-        document.querySelector(".timer")
-    );
-
-
-showQuestion();
-
-</script>
-</body>
-  </html>

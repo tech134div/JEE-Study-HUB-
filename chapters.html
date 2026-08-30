@@ -17,12 +17,12 @@ body{
     font-family:Arial,sans-serif;
     background:#0d0b18;
     color:white;
-    padding-bottom:40px;
+    padding-bottom:50px;
 }
 
 header{
     text-align:center;
-    padding:25px 15px;
+    padding:28px 15px;
 }
 
 header a{
@@ -31,17 +31,18 @@ header a{
 }
 
 h1{
-    margin-top:10px;
+    margin-top:12px;
     font-size:32px;
 }
 
 .subtitle{
     color:#aaa;
-    margin-top:6px;
+    margin-top:7px;
+    line-height:1.5;
 }
 
 .container{
-    max-width:750px;
+    max-width:800px;
     margin:auto;
     padding:15px;
 }
@@ -51,22 +52,22 @@ h1{
     border:1px solid #30265a;
     border-radius:20px;
     padding:20px;
-    margin:18px 0;
+    margin:20px 0;
 }
 
 .subject h2{
-    margin-bottom:15px;
+    margin-bottom:16px;
 }
 
 .chapter{
     background:#211b38;
     border-radius:14px;
     padding:15px;
-    margin:10px 0;
+    margin:11px 0;
 }
 
 .chapter-name{
-    font-size:18px;
+    font-size:17px;
     font-weight:bold;
     margin-bottom:12px;
 }
@@ -80,7 +81,7 @@ h1{
 button{
     border:0;
     border-radius:10px;
-    padding:10px 13px;
+    padding:10px 12px;
     color:white;
     font-weight:bold;
     cursor:pointer;
@@ -102,20 +103,36 @@ button{
     background:#16a34a;
 }
 
+.done.completed{
+    background:#16a34a;
+}
+
 .done:disabled{
-    opacity:.45;
+    opacity:.5;
     cursor:not-allowed;
 }
 
 .status{
-    margin-top:9px;
+    margin-top:10px;
     color:#aaa;
     font-size:13px;
+    line-height:1.5;
+}
+
+.search{
+    width:100%;
+    padding:14px;
+    border-radius:12px;
+    border:1px solid #403568;
+    background:#171329;
+    color:white;
+    font-size:16px;
+    outline:none;
 }
 
 .home{
     display:inline-block;
-    margin-top:10px;
+    margin-top:8px;
     padding:10px 15px;
     background:#7c3aed;
     border-radius:10px;
@@ -129,18 +146,26 @@ button{
 
 <header>
 
-    <a href="index.html">← Back to Home</a>
+<a href="index.html">← Back to Home</a>
 
-    <h1>📚 JEE Chapters</h1>
+<h1>📚 JEE Chapters</h1>
 
-    <p class="subtitle">
-        Complete Theory + PYQ → Mark Chapter Done
-    </p>
+<p class="subtitle">
+Complete Theory + PYQ → Unlock Mark Done
+</p>
 
 </header>
 
 
 <div class="container">
+
+<input
+    class="search"
+    id="search"
+    type="text"
+    placeholder="🔍 Search chapter..."
+    oninput="searchChapters()"
+>
 
 
 <!-- ================= PHYSICS ================= -->
@@ -150,70 +175,989 @@ button{
 <h2>⚡ Physics</h2>
 
 
-<div class="chapter" data-id="physics-kinematics">
+<div class="chapter" data-name="units and measurements">
+<div class="chapter-name">Units and Measurements</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Units and Measurements')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Units and Measurements')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('physics-units')">🔒 Mark Done</button>
+</div>
+<div class="status" id="physics-units-status">Theory: ❌ | PYQ: ❌</div>
+</div>
 
-    <div class="chapter-name">
-        Kinematics
-    </div>
 
-    <div class="actions">
+<div class="chapter" data-name="kinematics">
+<div class="chapter-name">Kinematics</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Kinematics')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Kinematics')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('physics-kinematics')">🔒 Mark Done</button>
+</div>
+<div class="status" id="physics-kinematics-status">Theory: ❌ | PYQ: ❌</div>
+</div>
 
-        <button class="theory"
-        onclick="openTheory('Kinematics')">
-        📖 Theory
-        </button>
 
-        <button class="pyq"
-        onclick="openPYQ('Kinematics')">
-        🔥 PYQ
-        </button>
+<div class="chapter" data-name="laws of motion">
+<div class="chapter-name">Laws of Motion</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Laws of Motion')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Laws of Motion')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('physics-nlm')">🔒 Mark Done</button>
+</div>
+<div class="status" id="physics-nlm-status">Theory: ❌ | PYQ: ❌</div>
+</div>
 
-        <button class="done"
-        disabled
-        onclick="completeChapter('physics-kinematics')">
-        🔒 Mark Done
-        </button>
 
-    </div>
+<div class="chapter" data-name="work energy power">
+<div class="chapter-name">Work, Energy & Power</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Work, Energy & Power')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Work, Energy & Power')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('physics-wep')">🔒 Mark Done</button>
+</div>
+<div class="status" id="physics-wep-status">Theory: ❌ | PYQ: ❌</div>
+</div>
 
-    <div class="status">
-        Theory: ❌ | PYQ: ❌
-    </div>
+
+<div class="chapter" data-name="system of particles center of mass">
+<div class="chapter-name">System of Particles & Centre of Mass</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('System of Particles & Centre of Mass')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('System of Particles & Centre of Mass')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('physics-com')">🔒 Mark Done</button>
+</div>
+<div class="status" id="physics-com-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="rotational motion">
+<div class="chapter-name">Rotational Motion</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Rotational Motion')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Rotational Motion')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('physics-rotation')">🔒 Mark Done</button>
+</div>
+<div class="status" id="physics-rotation-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="gravitation">
+<div class="chapter-name">Gravitation</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Gravitation')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Gravitation')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('physics-gravitation')">🔒 Mark Done</button>
+</div>
+<div class="status" id="physics-gravitation-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="properties of bulk matter">
+<div class="chapter-name">Properties of Bulk Matter</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Properties of Bulk Matter')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Properties of Bulk Matter')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('physics-bulk')">🔒 Mark Done</button>
+</div>
+<div class="status" id="physics-bulk-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="thermodynamics">
+<div class="chapter-name">Thermodynamics</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Thermodynamics')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Thermodynamics')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('physics-thermo')">🔒 Mark Done</button>
+</div>
+<div class="status" id="physics-thermo-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="kinetic theory">
+<div class="chapter-name">Kinetic Theory</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Kinetic Theory')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Kinetic Theory')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('physics-ktg')">🔒 Mark Done</button>
+</div>
+<div class="status" id="physics-ktg-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="oscillations">
+<div class="chapter-name">Oscillations</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Oscillations')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Oscillations')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('physics-shm')">🔒 Mark Done</button>
+</div>
+<div class="status" id="physics-shm-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="waves">
+<div class="chapter-name">Waves</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Waves')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Waves')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('physics-waves')">🔒 Mark Done</button>
+</div>
+<div class="status" id="physics-waves-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="electrostatics">
+<div class="chapter-name">Electrostatics</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Electrostatics')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Electrostatics')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('physics-electrostatics')">🔒 Mark Done</button>
+</div>
+<div class="status" id="physics-electrostatics-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="current electricity">
+<div class="chapter-name">Current Electricity</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Current Electricity')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Current Electricity')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('physics-current')">🔒 Mark Done</button>
+</div>
+<div class="status" id="physics-current-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="magnetic effects magnetism">
+<div class="chapter-name">Magnetic Effects of Current & Magnetism</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Magnetic Effects of Current & Magnetism')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Magnetic Effects of Current & Magnetism')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('physics-magnetism')">🔒 Mark Done</button>
+</div>
+<div class="status" id="physics-magnetism-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="electromagnetic induction alternating current">
+<div class="chapter-name">EMI & Alternating Current</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('EMI & Alternating Current')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('EMI & Alternating Current')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('physics-emi')">🔒 Mark Done</button>
+</div>
+<div class="status" id="physics-emi-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="electromagnetic waves">
+<div class="chapter-name">Electromagnetic Waves</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Electromagnetic Waves')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Electromagnetic Waves')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('physics-emwaves')">🔒 Mark Done</button>
+</div>
+<div class="status" id="physics-emwaves-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="ray optics">
+<div class="chapter-name">Ray Optics & Optical Instruments</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Ray Optics')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Ray Optics')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('physics-rayoptics')">🔒 Mark Done</button>
+</div>
+<div class="status" id="physics-rayoptics-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="wave optics">
+<div class="chapter-name">Wave Optics</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Wave Optics')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Wave Optics')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('physics-waveoptics')">🔒 Mark Done</button>
+</div>
+<div class="status" id="physics-waveoptics-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="dual nature">
+<div class="chapter-name">Dual Nature of Matter & Radiation</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Dual Nature')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Dual Nature')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('physics-dual')">🔒 Mark Done</button>
+</div>
+<div class="status" id="physics-dual-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="atoms">
+<div class="chapter-name">Atoms</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Atoms')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Atoms')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('physics-atoms')">🔒 Mark Done</button>
+</div>
+<div class="status" id="physics-atoms-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="nuclei">
+<div class="chapter-name">Nuclei</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Nuclei')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Nuclei')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('physics-nuclei')">🔒 Mark Done</button>
+</div>
+<div class="status" id="physics-nuclei-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="semiconductor electronics">
+<div class="chapter-name">Semiconductor Electronics</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Semiconductor Electronics')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Semiconductor Electronics')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('physics-semiconductor')">🔒 Mark Done</button>
+</div>
+<div class="status" id="physics-semiconductor-status">Theory: ❌ | PYQ: ❌</div>
+</div>
 
 </div>
 
 
-<div class="chapter" data-id="physics-nlm">
+<!-- ================= CHEMISTRY ================= -->
 
-    <div class="chapter-name">
-        Laws of Motion
-    </div>
+<div class="subject">
 
-    <div class="actions">
+<h2>🧪 Chemistry</h2>
 
-        <button class="theory"
-        onclick="openTheory('Laws of Motion')">
-        📖 Theory
-        </button>
 
-        <button class="pyq"
-        onclick="openPYQ('Laws of Motion')">
-        🔥 PYQ
-        </button>
+<div class="chapter" data-name="some basic concepts of chemistry mole concept">
+<div class="chapter-name">Some Basic Concepts of Chemistry / Mole Concept</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Mole Concept')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Mole Concept')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('chem-mole')">🔒 Mark Done</button>
+</div>
+<div class="status" id="chem-mole-status">Theory: ❌ | PYQ: ❌</div>
+</div>
 
-        <button class="done"
-        disabled
-        onclick="completeChapter('physics-nlm')">
-        🔒 Mark Done
-        </button>
 
-    </div>
+<div class="chapter" data-name="atomic structure">
+<div class="chapter-name">Atomic Structure</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Atomic Structure')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Atomic Structure')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('chem-atomic')">🔒 Mark Done</button>
+</div>
+<div class="status" id="chem-atomic-status">Theory: ❌ | PYQ: ❌</div>
+</div>
 
-    <div class="status">
-        Theory: ❌ | PYQ: ❌
-    </div>
+
+<div class="chapter" data-name="classification periodicity">
+<div class="chapter-name">Classification of Elements & Periodicity</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Periodic Classification')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Periodic Classification')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('chem-periodic')">🔒 Mark Done</button>
+</div>
+<div class="status" id="chem-periodic-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="chemical bonding">
+<div class="chapter-name">Chemical Bonding & Molecular Structure</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Chemical Bonding')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Chemical Bonding')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('chem-bonding')">🔒 Mark Done</button>
+</div>
+<div class="status" id="chem-bonding-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="thermodynamics chemistry">
+<div class="chapter-name">Chemical Thermodynamics</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Chemical Thermodynamics')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Chemical Thermodynamics')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('chem-thermo')">🔒 Mark Done</button>
+</div>
+<div class="status" id="chem-thermo-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="equilibrium">
+<div class="chapter-name">Equilibrium</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Equilibrium')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Equilibrium')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('chem-equilibrium')">🔒 Mark Done</button>
+</div>
+<div class="status" id="chem-equilibrium-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="redox reactions electrochemistry">
+<div class="chapter-name">Redox Reactions & Electrochemistry</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Redox Reactions & Electrochemistry')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Redox Reactions & Electrochemistry')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('chem-redox')">🔒 Mark Done</button>
+</div>
+<div class="status" id="chem-redox-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="solutions">
+<div class="chapter-name">Solutions</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Solutions')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Solutions')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('chem-solutions')">🔒 Mark Done</button>
+</div>
+<div class="status" id="chem-solutions-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="chemical kinetics">
+<div class="chapter-name">Chemical Kinetics</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Chemical Kinetics')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Chemical Kinetics')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('chem-kinetics')">🔒 Mark Done</button>
+</div>
+<div class="status" id="chem-kinetics-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="organic chemistry basic principles">
+<div class="chapter-name">Organic Chemistry: Basic Principles</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Organic Chemistry Basic Principles')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Organic Chemistry Basic Principles')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('chem-goc')">🔒 Mark Done</button>
+</div>
+<div class="status" id="chem-goc-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="hydrocarbons">
+<div class="chapter-name">Hydrocarbons</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Hydrocarbons')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Hydrocarbons')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('chem-hydrocarbons')">🔒 Mark Done</button>
+</div>
+<div class="status" id="chem-hydrocarbons-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="haloalkanes haloarenes">
+<div class="chapter-name">Haloalkanes & Haloarenes</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Haloalkanes & Haloarenes')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Haloalkanes & Haloarenes')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('chem-halo')">🔒 Mark Done</button>
+</div>
+<div class="status" id="chem-halo-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="alcohol phenol ether">
+<div class="chapter-name">Alcohols, Phenols & Ethers</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Alcohols Phenols Ethers')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Alcohols Phenols Ethers')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('chem-ape')">🔒 Mark Done</button>
+</div>
+<div class="status" id="chem-ape-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="aldehydes ketones carboxylic acids">
+<div class="chapter-name">Aldehydes, Ketones & Carboxylic Acids</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Aldehydes Ketones Carboxylic Acids')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Aldehydes Ketones Carboxylic Acids')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('chem-akca')">🔒 Mark Done</button>
+</div>
+<div class="status" id="chem-akca-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="amines">
+<div class="chapter-name">Amines</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Amines')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Amines')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('chem-amines')">🔒 Mark Done</button>
+</div>
+<div class="status" id="chem-amines-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="biomolecules">
+<div class="chapter-name">Biomolecules</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Biomolecules')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Biomolecules')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('chem-biomolecules')">🔒 Mark Done</button>
+</div>
+<div class="status" id="chem-biomolecules-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="coordination compounds">
+<div class="chapter-name">Coordination Compounds</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Coordination Compounds')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Coordination Compounds')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('chem-coordination')">🔒 Mark Done</button>
+</div>
+<div class="status" id="chem-coordination-status">Theory: ❌ | PYQ: ❌</div>
+</div>
 
 </div>
 
 
-<div class="chapter" data-id="
+<!-- ================= MATHEMATICS ================= -->
+
+<div class="subject">
+
+<h2>📐 Mathematics</h2>
+
+
+<div class="chapter" data-name="sets relations functions">
+<div class="chapter-name">Sets, Relations & Functions</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Sets, Relations & Functions')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Sets, Relations & Functions')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('math-sets')">🔒 Mark Done</button>
+</div>
+<div class="status" id="math-sets-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="quadratic equations">
+<div class="chapter-name">Quadratic Equations</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Quadratic Equations')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Quadratic Equations')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('math-quadratic')">🔒 Mark Done</button>
+</div>
+<div class="status" id="math-quadratic-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="sequence series">
+<div class="chapter-name">Sequence & Series</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Sequence & Series')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Sequence & Series')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('math-sequence')">🔒 Mark Done</button>
+</div>
+<div class="status" id="math-sequence-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="trigonometry">
+<div class="chapter-name">Trigonometry</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Trigonometry')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Trigonometry')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('math-trigonometry')">🔒 Mark Done</button>
+</div>
+<div class="status" id="math-trigonometry-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="complex numbers">
+<div class="chapter-name">Complex Numbers</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Complex Numbers')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Complex Numbers')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('math-complex')">🔒 Mark Done</button>
+</div>
+<div class="status" id="math-complex-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="permutations combinations">
+<div class="chapter-name">Permutations & Combinations</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Permutations & Combinations')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Permutations & Combinations')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('math-pnc')">🔒 Mark Done</button>
+</div>
+<div class="status" id="math-pnc-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="binomial theorem">
+<div class="chapter-name">Binomial Theorem</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Binomial Theorem')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Binomial Theorem')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('math-binomial')">🔒 Mark Done</button>
+</div>
+<div class="status" id="math-binomial-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="straight lines">
+<div class="chapter-name">Straight Lines</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Straight Lines')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Straight Lines')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('math-straight')">🔒 Mark Done</button>
+</div>
+<div class="status" id="math-straight-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="circle">
+<div class="chapter-name">Circle</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Circle')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Circle')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('math-circle')">🔒 Mark Done</button>
+</div>
+<div class="status" id="math-circle-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="conic sections">
+<div class="chapter-name">Conic Sections</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Conic Sections')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Conic Sections')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('math-conics')">🔒 Mark Done</button>
+</div>
+<div class="status" id="math-conics-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="limits continuity differentiability">
+<div class="chapter-name">Limits, Continuity & Differentiability</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('LCD')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('LCD')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('math-lcd')">🔒 Mark Done</button>
+</div>
+<div class="status" id="math-lcd-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="application derivatives">
+<div class="chapter-name">Application of Derivatives</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Application of Derivatives')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Application of Derivatives')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('math-aod')">🔒 Mark Done</button>
+</div>
+<div class="status" id="math-aod-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="integral calculus">
+<div class="chapter-name">Integral Calculus</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Integral Calculus')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Integral Calculus')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('math-integral')">🔒 Mark Done</button>
+</div>
+<div class="status" id="math-integral-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="differential equations">
+<div class="chapter-name">Differential Equations</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Differential Equations')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Differential Equations')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('math-de')">🔒 Mark Done</button>
+</div>
+<div class="status" id="math-de-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="vector algebra">
+<div class="chapter-name">Vector Algebra</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Vector Algebra')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Vector Algebra')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('math-vector')">🔒 Mark Done</button>
+</div>
+<div class="status" id="math-vector-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="three dimensional geometry">
+<div class="chapter-name">Three Dimensional Geometry</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Three Dimensional Geometry')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Three Dimensional Geometry')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('math-3d')">🔒 Mark Done</button>
+</div>
+<div class="status" id="math-3d-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="probability">
+<div class="chapter-name">Probability</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Probability')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Probability')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('math-probability')">🔒 Mark Done</button>
+</div>
+<div class="status" id="math-probability-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+
+<div class="chapter" data-name="statistics">
+<div class="chapter-name">Statistics</div>
+<div class="actions">
+<button class="theory" onclick="openTheory('Statistics')">📖 Theory</button>
+<button class="pyq" onclick="openPYQ('Statistics')">🔥 PYQ</button>
+<button class="done" disabled onclick="completeChapter('math-statistics')">🔒 Mark Done</button>
+</div>
+<div class="status" id="math-statistics-status">Theory: ❌ | PYQ: ❌</div>
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* ================================
+   OPEN THEORY
+================================ */
+
+function openTheory(chapter){
+
+    localStorage.setItem(
+        "selectedChapter",
+        chapter
+    );
+
+    location.href =
+        "theory.html";
+}
+
+
+/* ================================
+   OPEN PYQ
+================================ */
+
+function openPYQ(chapter){
+
+    localStorage.setItem(
+        "selectedChapter",
+        chapter
+    );
+
+    location.href =
+        "pyq.html";
+}
+
+
+/* ================================
+   UPDATE CHAPTER STATUS
+================================ */
+
+function updateStatus(){
+
+    document
+    .querySelectorAll(".chapter")
+    .forEach(function(chapter){
+
+        let id =
+            chapter.getAttribute("data-id");
+
+        /*
+        data-id isn't used here.
+        We identify the Mark Done button.
+        */
+
+        let doneButton =
+            chapter.querySelector(".done");
+
+        if(!doneButton) return;
+
+        let buttonId =
+            doneButton
+            .getAttribute("onclick");
+
+        if(!buttonId) return;
+
+        let match =
+            buttonId.match(
+                /completeChapter\('([^']+)'\)/
+            );
+
+        if(!match) return;
+
+        let chapterId =
+            match[1];
+
+
+        let theory =
+            localStorage.getItem(
+                chapterId + "-theory"
+            ) === "true";
+
+        let pyq =
+            localStorage.getItem(
+                chapterId + "-pyq"
+            ) === "true";
+
+        let completed =
+            localStorage.getItem(
+                chapterId + "-completed"
+            ) === "true";
+
+
+        let status =
+            chapter.querySelector(".status");
+
+        if(status){
+
+            status.innerText =
+                "Theory: " +
+                (theory ? "✅" : "❌") +
+                " | PYQ: " +
+                (pyq ? "✅" : "❌") +
+                (completed ? " | Chapter: ✅" : "");
+
+        }
+
+
+        if(completed){
+
+            doneButton.disabled = false;
+            doneButton.classList.add("completed");
+            doneButton.innerText =
+                "✅ Completed";
+
+        }
+
+        else if(theory && pyq){
+
+            doneButton.disabled = false;
+            doneButton.classList.add("unlocked");
+            doneButton.innerText =
+                "✅ Mark Done";
+
+        }
+
+    });
+
+}
+
+
+/* ================================
+   COMPLETE CHAPTER
+================================ */
+
+function completeChapter(id){
+
+    let theory =
+        localStorage.getItem(
+            id + "-theory"
+        ) === "true";
+
+    let pyq =
+        localStorage.getItem(
+            id + "-pyq"
+        ) === "true";
+
+
+    if(!theory || !pyq){
+
+        alert(
+            "📖 Complete Theory and 🔥 PYQ first!"
+        );
+
+        return;
+    }
+
+
+    localStorage.setItem(
+        id + "-completed",
+        "true"
+    );
+
+
+    /*
+       Save subject progress
+    */
+
+    updateSubjectProgress();
+
+
+    alert(
+        "🎉 Chapter completed!"
+    );
+
+
+    updateStatus();
+}
+
+
+/* ================================
+   SUBJECT PROGRESS
+================================ */
+
+function updateSubjectProgress(){
+
+    let physics =
+        document.querySelectorAll(
+            ".subject:nth-of-type(1) .chapter"
+        );
+
+    let chemistry =
+        document.querySelectorAll(
+            ".subject:nth-of-type(2) .chapter"
+        );
+
+    let maths =
+        document.querySelectorAll(
+            ".subject:nth-of-type(3) .chapter"
+        );
+
+
+    calculateAndSave(
+        physics,
+        "physicsProgress"
+    );
+
+    calculateAndSave(
+        chemistry,
+        "chemistryProgress"
+    );
+
+    calculateAndSave(
+        maths,
+        "mathsProgress"
+    );
+
+}
+
+
+function calculateAndSave(list,key){
+
+    let total =
+        list.length;
+
+    let completed = 0;
+
+
+    list.forEach(function(chapter){
+
+        let button =
+            chapter.querySelector(".done");
+
+        if(!button) return;
+
+        let text =
+            button.getAttribute("onclick");
+
+        let match =
+            text.match(
+                /completeChapter\('([^']+)'\)/
+            );
+
+        if(!match) return;
+
+        let id =
+            match[1];
+
+
+        if(
+            localStorage.getItem(
+                id + "-completed"
+            ) === "true"
+        ){
+
+            completed++;
+
+        }
+
+    });
+
+
+    let progress =
+        total > 0
+        ? Math.round(
+            completed / total * 100
+        )
+        : 0;
+
+
+    localStorage.setItem(
+        key,
+        progress
+    );
+
+}
+
+
+/* ================================
+   SEARCH
+================================ */
+
+function searchChapters(){
+
+    let value =
+        document.getElementById("search")
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    document
+    .querySelectorAll(".chapter")
+    .forEach(function(chapter){
+
+        let name =
+            chapter
+            .getAttribute("data-name")
+            .toLowerCase();
+
+
+        if(name.includes(value)){
+
+            chapter.style.display =
+                "block";
+
+        }else{
+
+            chapter.style.display =
+                "none";
+
+        }
+
+    });
+
+}
+
+
+/* ================================
+   START
+================================ */
+
+updateStatus();
+updateSubjectProgress();
+
+</script>
+
+</body>
+    </html>

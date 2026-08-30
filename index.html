@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JEE Study Hub V8</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+ margin:0;padding:15px;
+ font-family:Arial,sans-serif;
+ background:#f4f6fb;color:#111;
+ transition:.2s;
+}
+
+body.dark{background:#121212;color:white}
+body.dark .card{background:#1e1e1e;box-shadow:0 5px 20px #000}
+body.dark .item{background:#2b2b2b}
+body.dark .sub{color:#aaa}
+
+h1{text-align:center;font-size:38px;margin:25px 0 5px}
+.sub{text-align:center;color:#666;font-size:18px}
+
+.card{
+ max-width:700px;margin:20px auto;padding:20px;
+ background:white;border-radius:20px;
+ box-shadow:0 5px 20px #ddd;
+}
+
+h2{font-size:27px}
+
+.item{
+ display:flex;align-items:center;gap:12px;
+ padding:13px;margin:7px 0;
+ background:#f1f1f1;border-radius:12px;
+ font-size:17px;
+}
+
+.item input{width:20px;height:20px}
+
+.bar{
+ height:18px;background:#ddd;
+ border-radius:20px;overflow:hidden;
+}
+
+.fill{
+ height:100%;width:0%;
+ background:#222;transition:.3s;
+}
+
+body.dark .fill{background:white}
+
+.percent{font-weight:bold;font-size:18px}
+
+button{
+ padding:11px 16px;margin:5px;
+ border:0;border-radius:10px;
+ background:#222;color:white;
+ font-size:15px;cursor:pointer;
+}
+
+.nav{
+ position:sticky;top:0;z-index:50;
+ max-width:700px;margin:0 auto 15px;
+ padding:8px;
+ background:white;
+ border-radius:14px;
+ box-shadow:0 3px 15px #ddd;
+ display:flex;justify-content:center;
+}
+
+body.dark .nav{
+ background:#1e1e1e;
+ box-shadow:0 3px 15px #000;
+}
+
+.nav button{font-size:13px}
+
+#studyTimer{
+ text-align:center;font-size:50px;
+ font-weight:bold;margin:20px;
+}
+
+input[type=text],input[type=number]{
+ padding:11px;
+ border:1px solid #aaa;
+ border-radius:10px;
+}
+
+input[type=text]{width:70%}
+
+.subjectTitle{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+}
+
+.smallPercent{
+ font-size:16px;
+ font-weight:bold;
+}
+
+.task{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ padding:10px;
+ margin:6px 0;
+ background:#f1f1f1;
+ border-radius:10px;
+}
+
+body.dark .task{background:#2b2b2b}
+</style>
+</head>
+
+<body>
+
+<h1>🚀 JEE Study Hub</h1>
+<div class="sub">Study • Practice • Improve</div>
+
+<div class="nav">
+<button onclick="go('home')">🏠 Home</button>
+<button onclick="go('chapters')">📚 Chapters</button>
+<button onclick="go('timerSection')">⏱️ Timer</button>
+<button onclick="go('stats')">📊 Stats</button>
+</div>
+
+
+<!-- DASHBOARD -->
+<div class="card" id="home">
+<h2>📊 Dashboard</h2>
+
+<p class="percent">
+⚡ Physics <span id="p">0%</span>
+</p>
+<div class="bar"><div class="fill" id="pb"></div></div>
+
+<p class="percent">
+🧪 Chemistry <span id="c">0%</span>
+</p>
+<div class="bar"><div class="fill" id="cb"></div></div>
+
+<p class="percent">
+📐 Mathematics <span id="m">0%</span>
+</p>
+<div class="bar"><div class="fill" id="mb"></div></div>
+
+<h2 style="text-align:center">
+Overall: <span id="o">0%</span>
+</h2>
+
+<div class="bar">
+<div class="fill" id="ob"></div>
+</div>
+</div>
+
+
+<!-- CHAPTERS -->
+<div class="card" id="chapters">
+<h2>📚 JEE Chapters</h2>
+
+<div class="subjectTitle">
+<h2>⚡ Physics</h2>
+<span class="smallPercent" id="physicsPercent">0%</span>
+</div>
+
+<div id="physicsList"></div>
+
+<hr>
+
+<div class="subjectTitle">
+<h2>🧪 Chemistry</h2>
+<span class="smallPercent" id="chemistryPercent">0%</span>
+</div>
+
+<div id="chemistryList"></div>
+
+<hr>
+
+<div class="subjectTitle">
+<h2>📐 Mathematics</h2>
+<span class="smallPercent" id="mathPercent">0%</span>
+</div>
+
+<div id="mathList"></div>
+
+</div>
+
+
+<!-- TIMER -->
+<div class="card" id="timerSection">
+<h2>⏱️ Study Timer</h2>
+
+<div id="studyTimer">25:00</div>
+
+<div style="text-align:center">
+<button onclick="startStudy()">▶ Start</button>
+<button onclick="pauseStudy()">⏸ Pause</button>
+<button onclick="resetStudy()">🔄 Reset</button>
+</div>
+
+<p id="studyTotal">Today: 0 min</p>
+</div>
+
+
+<!-- DAILY GOAL -->
+<div class="card">
+<h2>🎯 Daily Study Goal</h2>
+
+<p>
+Today's Goal:
+<b id="goalText">8 hours</b>
+</p>
+
+<label>Set Goal:</label>
+
+<input
+ type="number"
+ id="goalInput"
+ value="8"
+ min="1"
+ max="24"
+>
+
+<button onclick="saveGoal()">Save Goal</button>
+
+<p id="goalSaved">Today: 0h 0m / 8 hours</p>
+
+<div class="bar">
+<div class="fill" id="goalBar"></div>
+</div>
+</div>
+
+
+<!-- TASKS -->
+<div class="card">
+<h2>📝 Today's Tasks</h2>
+
+<input
+ id="task"
+ type="text"
+ placeholder="Enter task"
+>
+
+<button onclick="addTask()">Add</button>
+
+<div id="taskList"></div>
+</div>
+
+
+<!-- STREAK -->
+<div class="card">
+<h2>🔥 Study Streak</h2>
+
+<p id="streakText">
+Current Streak: 0 days 🔥
+</p>
+
+<h3>📅 Study History</h3>
+
+<div id="history"></div>
+</div>
+
+
+<!-- ACHIEVEMENTS -->
+<div class="card">
+<h2>🏆 Achievements</h2>
+
+<div class="item" id="badge1">
+🔒 First Study Session
+</div>
+
+<div class="item" id="badge2">
+🔒 1 Hour Studied
+</div>
+
+<div class="item" id="badge3">
+🔒 3 Day Streak
+</div>
+
+<div class="item" id="badge4">
+🔒 5 Chapters Completed
+</div>
+
+<div class="item" id="badge5">
+🔒 Daily Goal Completed
+</div>
+</div>
+
+
+<!-- STATS -->
+<div class="card" id="stats">
+<h2>📊 Weekly Study Stats</h2>
+
+<p>
+📚 Total Study Time:
+<b id="weekTotal">0h 0m</b>
+</p>
+
+<p>
+📈 Average Per Day:
+<b id="weekAverage">0 min</b>
+</p>
+
+<p>
+🏆 Best Day:
+<b id="bestDay">No data yet</b>
+</p>
+
+<div id="weekList"></div>
+</div>
+
+
+<button
+ onclick="darkMode()"
+ style="display:block;margin:20px auto"
+>
+🌙 Dark Mode
+</button>
+
+
+<script>
+
+/* =========================
+   CHAPTER LISTS
+========================= */
+
+const physics = [
+"Units & Measurements",
+"Motion in a Straight Line",
+"Motion in a Plane",
+"Laws of Motion",
+"Work, Energy & Power",
+"Centre of Mass & System of Particles",
+"Rotational Motion",
+"Gravitation",
+"Properties of Solids",
+"Properties of Fluids",
+"Thermal Properties of Matter",
+"Thermodynamics",
+"Kinetic Theory of Gases",
+"Oscillations",
+"Waves",
+"Electrostatics",
+"Capacitors",
+"Current Electricity",
+"Moving Charges & Magnetism",
+"Magnetism & Matter",
+"Electromagnetic Induction",
+"Alternating Current",
+"Electromagnetic Waves",
+"Ray Optics",
+"Wave Optics",
+"Dual Nature of Matter",
+"Atoms",
+"Nuclei",
+"Semiconductors",
+"Experimental Skills"
+];
+
+
+const chemistry = [
+"Some Basic Concepts of Chemistry",
+"Atomic Structure",
+"Classification of Elements & Periodicity",
+"Chemical Bonding & Molecular Structure",
+"Chemical Thermodynamics",
+"Solutions",
+"Equilibrium",
+"Redox Reactions",
+"Electrochemistry",
+"Chemical Kinetics",
+"p-Block Elements",
+"d- and f-Block Elements",
+"Coordination Compounds",
+"Purification & Characterisation of Organic Compounds",
+"Some Basic Principles of Organic Chemistry",
+"Hydrocarbons",
+"Organic Compounds Containing Halogens",
+"Organic Compounds Containing Oxygen",
+"Organic Compounds Containing Nitrogen",
+"Biomolecules",
+"Practical Chemistry"
+];
+
+
+const mathematics = [
+"Sets",
+"Relations & Functions",
+"Complex Numbers",
+"Quadratic Equations",
+"Sequences & Series",
+"Permutations & Combinations",
+"Binomial Theorem",
+"Trigonometric Functions",
+"Trigonometric Equations",
+"Straight Lines",
+"Circles",
+"Parabola",
+"Ellipse",
+"Hyperbola",
+"Limits",
+"Continuity & Differentiability",
+"Applications of Derivatives",
+"Indefinite Integrals",
+"Definite Integrals",
+"Area Under Curves",
+"Differential Equations",
+"Matrices",
+"Determinants",
+"Vectors",
+"Three Dimensional Geometry",
+"Statistics",
+"Probability"
+];
+
+
+/* =========================
+   CREATE CHAPTERS
+========================= */
+
+function createChapters(list,id,prefix){
+
+    let box=document.getElementById(id);
+
+    list.forEach((name,index)=>{
+
+        let label=document.createElement("label");
+        label.className="item";
+
+        let checkbox=document.createElement("input");
+
+        checkbox.type="checkbox";
+        checkbox.className=prefix;
+
+        let key="chapter_"+prefix+"_"+index;
+
+        checkbox.checked=
+        localStorage.getItem(key)==="true";
+
+        checkbox.addEventListener("change",function(){
+
+            localStorage.setItem(
+                key,
+                checkbox.checked
+            );
+
+            update();
+            updateAchievements();
+
+        });
+
+        label.appendChild(checkbox);
+
+        label.appendChild(
+            document.createTextNode(name)
+        );
+
+        box.appendChild(label);
+
+    });
+}
+
+
+createChapters(
+ physics,
+ "physicsList",
+ "phy"
+);
+
+createChapters(
+ chemistry,
+ "chemistryList",
+ "chem"
+);
+
+createChapters(
+ mathematics,
+ "mathList",
+ "math"
+);
+
+
+/* =========================
+   PROGRESS
+========================= */
+
+function progress(cls){
+
+    let boxes=
+    document.querySelectorAll(
+        "."+cls
+    );
+
+    if(!boxes.length)return 0;
+
+    let done=0;
+
+    boxes.forEach(box=>{
+        if(box.checked)done++;
+    });
+
+    return Math.round(
+        done/boxes.length*100
+    );
+}
+
+
+function update(){
+
+    let p=progress("phy");
+    let c=progress("chem");
+    let m=progress("math");
+
+    document.getElementById("p").innerText=p+"%";
+    document.getElementById("c").innerText=c+"%";
+    document.getElementById("m").innerText=m+"%";
+
+    document.getElementById("physicsPercent").innerText=p+"%";
+    document.getElementById("chemistryPercent").innerText=c+"%";
+    document.getElementById("mathPercent").innerText=m+"%";
+
+    document.getElementById("pb").style.width=p+"%";
+    document.getElementById("cb").style.width=c+"%";
+    document.getElementById("mb").style.width=m+"%";
+
+    let overall=
+    Math.round((p+c+m)/3);
+
+    document.getElementById("o").innerText=
+    overall+"%";
+
+    document.getElementById("ob").style.width=
+    overall+"%";
+}
+
+update();
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function go(id){
+
+    let element=
+    document.getElementById(id);
+
+    if(element){
+
+        element.scrollIntoView({
+            behavior:"smooth"
+        });
+
+    }
+}
+
+
+/* =========================
+   STUDY TIMER
+========================= */
+
+let studyTime=1500;
+let studyInterval=null;
+
+let todayStudy=
+Number(
+    localStorage.getItem("todayStudy")
+)||0;
+
+
+function showStudy(){
+
+    let m=
+    Math.floor(studyTime/60);
+
+    let s=
+    studyTime%60;
+
+    if(s<10)s="0"+s;
+
+    document.getElementById(
+        "studyTimer"
+    ).innerText=
+    m+":"+s;
+
+    document.getElementById(
+        "studyTotal"
+    ).innerText=
+    "Today: "+
+    Math.floor(todayStudy/60)+
+    " min";
+
+    updateDailyGoal();
+}
+
+
+function startStudy(){
+
+    if(studyInterval)return;
+
+    studyInterval=
+    setInterval(function(){
+
+        if(studyTime>0){
+
+            studyTime--;
+            todayStudy++;
+
+            localStorage.setItem(
+                "todayStudy",
+                todayStudy
+            );
+
+            showStudy();
+
+        }else{
+
+            pauseStudy();
+
+            alert(
+                "🔥 25 minutes completed!"
+            );
+
+        }
+
+    },1000);
+}
+
+
+function pauseStudy(){
+
+    clearInterval(studyInterval);
+    studyInterval=null;
+
+    saveHistory();
+    updateAchievements();
+}
+
+
+function resetStudy(){
+
+    pauseStudy();
+
+    studyTime=1500;
+
+    showStudy();
+}
+
+
+showStudy();
+
+
+/* =========================
+   DAILY GOAL
+========================= */
+
+let dailyGoal=
+Number(
+    localStorage.getItem("dailyGoal")
+)||8;
+
+
+document.getElementById(
+    "goalInput"
+).value=dailyGoal;
+
+
+function saveGoal(){
+
+    dailyGoal=
+    Number(
+        document.getElementById(
+            "goalInput"
+        ).value
+    )||8;
+
+    localStorage.setItem(
+        "dailyGoal",
+        dailyGoal
+    );
+
+    updateDailyGoal();
+    updateAchievements();
+}
+
+
+function updateDailyGoal(){
+
+    let percent=
+    Math.min(
+        100,
+        Math.round(
+            todayStudy/
+            (dailyGoal*3600)*100
+        )
+    );
+
+    let hours=
+    Math.floor(todayStudy/3600);
+
+    let minutes=
+    Math.floor(
+        (todayStudy%3600)/60
+    );
+
+    document.getElementById(
+        "goalText"
+    ).innerText=
+    dailyGoal+" hours";
+
+    document.getElementById(
+        "goalSaved"
+    ).innerText=
+    "Today: "+
+    hours+"h "+
+    minutes+"m / "+
+    dailyGoal+" hours";
+
+    document.getElementById(
+        "goalBar"
+    ).style.width=
+    percent+"%";
+}
+
+
+updateDailyGoal();
+
+
+/* =========================
+   HISTORY + STREAK
+========================= */
+
+let today=
+new Date().toISOString()
+.split("T")[0];
+
+
+let history=
+JSON.parse(
+    localStorage.getItem(
+        "studyHistory"
+    )||"{}"
+);
+
+
+function saveHistory(){
+
+    history[today]=todayStudy;
+
+    localStorage.setItem(
+        "studyHistory",
+        JSON.stringify(history)
+    );
+
+    showHistory();
+    calculateStreak();
+    weeklyStats();
+}
+
+
+function showHistory(){
+
+    let box=
+    document.getElementById(
+        "history"
+    );
+
+    box.innerHTML="";
+
+    Object.keys(history)
+    .sort()
+    .reverse()
+    .slice(0,7)
+    .forEach(function(date){
+
+        let minutes=
+        Math.floor(
+            history[date]/60
+        );
+
+        let row=
+        document.createElement("p");
+
+        row.innerText=
+        "📅 "+date+
+        " — "+minutes+" min";
+
+        box.appendChild(row);
+
+    });
+}
+
+
+function calculateStreak(){
+
+    let streak=0;
+
+    let date=new Date();
+
+    while(true){
+
+        let d=
+        date.toISOString()
+        .split("T")[0];
+
+        if(
+            history[d] &&
+            history[d]>0
+        ){
+
+            streak++;
+
+            date.setDate(
+                date.getDate()-1
+            );
+
+        }else{
+
+            break;
+
+        }
+    }
+
+    document.getElementById(
+        "streakText"
+    ).innerText=
+    "Current Streak: "+
+    streak+
+    " days 🔥";
+}
+
+
+saveHistory();
+
+
+/* =========================
+   ACHIEVEMENTS
+========================= */
+
+function updateAchievements(){
+
+    let seconds=
+    Number(
+        localStorage.getItem(
+            "todayStudy"
+        )
+    )||0;
+
+
+    let completed=
+    document.querySelectorAll(
+        ".item input[type=checkbox]:checked"
+    ).length;
+
+
+    let streakText=
+    document.getElementById(
+        "streakText"
+    ).innerText;
+
+    let match=
+    streakText.match(/\d+/);
+
+    let streak=
+    match?Number(match[0]):0;
+
+
+    if(seconds>0){
+
+        document.getElementById(
+            "badge1"
+        ).innerText=
+        "🥇 First Study Session — UNLOCKED";
+    }
+
+
+    if(seconds>=3600){
+
+        document.getElementById(
+            "badge2"
+        ).innerText=
+        "⏱️ 1 Hour Studied — UNLOCKED";
+    }
+
+
+    if(streak>=3){
+
+        document.getElementById(
+            "badge3"
+        ).innerText=
+        "🔥 3 Day Streak — UNLOCKED";
+    }
+
+
+    if(completed>=5){
+
+        document.getElementById(
+            "badge4"
+        ).innerText=
+        "📚 5 Chapters Completed — UNLOCKED";
+    }
+
+
+    if(
+        seconds >=
+        dailyGoal*3600
+    ){
+
+        document.getElementById(
+            "badge5"
+        ).innerText=
+        "🎯 Daily Goal Completed — UNLOCKED";
+    }
+}
+
+
+updateAchievements();
+
+
+/* =========================
+   WEEKLY STATS
+========================= */
+
+function weeklyStats(){
+
+    let total=0;
+    let best=0;
+    let bestDate="";
+    let days=0;
+
+    let list=
+    document.getElementById(
+        "weekList"
+    );
+
+    list.innerHTML="";
+
+
+    let dates=
+    Object.keys(history)
+    .sort()
+    .reverse()
+    .slice(0,7);
+
+
+    dates.forEach(function(date){
+
+        let seconds=
+        Number(history[date])||0;
+
+        total+=seconds;
+
+        if(seconds>best){
+
+            best=seconds;
+            bestDate=date;
+
+        }
+
+        if(seconds>0)days++;
+
+
+        let row=
+        document.createElement("p");
+
+        row.innerText=
+        "📅 "+date+
+        " — "+
+        Math.floor(seconds/60)+
+        " min";
+
+        list.appendChild(row);
+
+    });
+
+
+    document.getElementById(
+        "weekTotal"
+    ).innerText=
+    Math.floor(total/3600)+
+    "h "+
+    Math.floor((total%3600)/60)+
+    "m";
+
+
+    let average=
+    days
+    ?Math.round(total/days/60)
+    :0;
+
+
+    document.getElementById(
+        "weekAverage"
+    ).innerText=
+    average+" min";
+
+
+    document.getElementById(
+        "bestDay"
+    ).innerText=
+    bestDate
+    ?bestDate+
+    " ("+
+    Math.floor(best/60)+
+    " min)"
+    :"No data yet";
+}
+
+
+weeklyStats();
+
+
+/* =========================
+   TASKS
+========================= */
+
+let tasks=
+JSON.parse(
+    localStorage.getItem(
+        "tasks"
+    )||"[]"
+);
+
+
+function showTasks(){
+
+    let box=
+    document.getElementById(
+        "taskList"
+    );
+
+    box.innerHTML="";
+
+
+    tasks.forEach(function(task,index){
+
+        let row=
+        document.createElement("div");
+
+        row.className="task";
+
+        row.innerHTML=
+        "<span>📝 "+
+        task+
+        "</span>"+
+        "<button onclick=\"deleteTask("+
+        index+
+        ")\">❌</button>";
+
+        box.appendChild(row);
+
+    });
+}
+
+
+function addTask(){
+
+    let input=
+    document.getElementById(
+        "task"
+    );
+
+    let value=
+    input.value.trim();
+
+    if(!value)return;
+
+    tasks.push(value);
+
+    localStorage.setItem(
+        "tasks",
+        JSON.stringify(tasks)
+    );
+
+    input.value="";
+
+    showTasks();
+}
+
+
+function deleteTask(index){
+
+    tasks.splice(index,1);
+
+    localStorage.setItem(
+        "tasks",
+        JSON.stringify(tasks)
+    );
+
+    showTasks();
+}
+
+
+showTasks();
+
+
+/* =========================
+   DARK MODE
+========================= */
+
+function darkMode(){
+
+    document.body.classList.toggle(
+        "dark"
+    );
+
+    localStorage.setItem(
+        "dark",
+        document.body.classList.contains(
+            "dark"
+        )
+    );
+}
+
+
+if(
+    localStorage.getItem("dark")
+    ==="true"
+){
+
+    document.body.classList.add(
+        "dark"
+    );
+}
+
+</script>
+
+</body>
+  </html>

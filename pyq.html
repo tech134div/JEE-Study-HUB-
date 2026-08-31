@@ -3,16 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-
 <title>JEE Study Hub - JEE Main PYQ</title>
 
 <style>
-
-*{
-box-sizing:border-box;
-margin:0;
-padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
 font-family:Arial,sans-serif;
@@ -59,78 +53,53 @@ h2{
 margin-bottom:15px;
 }
 
-select,
-button{
-width:100%;
-padding:14px;
-border-radius:12px;
-border:1px solid #4b3b77;
-font-size:16px;
-}
-
-select{
-background:#211b38;
-color:white;
-margin-bottom:10px;
-}
-
-button{
-border:0;
-background:#7c3aed;
-color:white;
-font-weight:bold;
-cursor:pointer;
-margin-top:8px;
-}
-
-button:hover{
-background:#8b5cf6;
-}
-
 .filters{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:10px;
 }
 
-.question{
+label{
+display:block;
+margin-bottom:6px;
+color:#ccc;
+font-size:14px;
+}
+
+select,input{
+width:100%;
+padding:14px;
+border-radius:12px;
+border:1px solid #4b3b77;
 background:#211b38;
-padding:18px;
-border-radius:14px;
-margin-top:15px;
-line-height:1.6;
+color:white;
+font-size:16px;
+margin-bottom:10px;
 }
 
-.options{
-display:grid;
-gap:10px;
-margin-top:15px;
+button,.practice{
+display:block;
+width:100%;
+padding:14px;
+border-radius:12px;
+border:0;
+background:#7c3aed;
+color:white;
+font-weight:bold;
+font-size:16px;
+cursor:pointer;
+margin-top:10px;
+text-align:center;
+text-decoration:none;
 }
 
-.option{
-background:#171329;
-border:1px solid #3b3260;
-text-align:left;
-}
-
-.option.selected{
-border-color:#8b5cf6;
-background:#302252;
-}
-
-.option.correct{
-background:#14532d;
-border-color:#22c55e;
-}
-
-.option.wrong{
-background:#5f1d2a;
-border-color:#ef4444;
+button:hover,.practice:hover{
+background:#8b5cf6;
 }
 
 .timer{
 text-align:center;
-font-size:38px;
+font-size:40px;
 font-weight:bold;
 color:#c4b5fd;
 margin:15px 0;
@@ -144,17 +113,14 @@ color:#ef4444;
 display:flex;
 justify-content:space-between;
 color:#aaa;
+margin-bottom:15px;
 }
 
 .locked{
 border:1px solid #8b5cf6;
 text-align:center;
-}
-
-.pro{
-font-size:28px;
-margin:10px 0;
-font-weight:bold;
+padding:20px;
+border-radius:15px;
 }
 
 .lock{
@@ -162,27 +128,27 @@ font-size:45px;
 margin:10px;
 }
 
+.pro{
+font-size:28px;
+font-weight:bold;
+color:#c4b5fd;
+margin:10px;
+}
+
 .small{
 color:#aaa;
 font-size:14px;
-line-height:1.5;
-}
-
-.result{
-margin-top:15px;
-padding:15px;
-background:#211b38;
-border-radius:12px;
 line-height:1.6;
 }
 
 .source{
 margin-top:15px;
-padding:12px;
+padding:14px;
 background:#211b38;
 border-radius:10px;
 font-size:13px;
 color:#aaa;
+line-height:1.6;
 }
 
 footer{
@@ -193,53 +159,37 @@ padding:25px;
 }
 
 @media(max-width:500px){
-
-.filters{
-grid-template-columns:1fr;
+.filters{grid-template-columns:1fr}
 }
-
-}
-
 </style>
 </head>
 
-
 <body>
 
-
 <header>
-
-<a href="index.html">
-← Back to Home
-</a>
+<a href="index.html">← Back to Home</a>
 
 <h1>🔥 JEE Main PYQ</h1>
 
 <p class="subtitle">
 2016–2026 • Year-wise • Subject-wise • Chapter-wise
 </p>
-
 </header>
-
 
 <div class="container">
 
-
-<!-- FILTERS -->
+<!-- PYQ SELECTOR -->
 
 <div class="card">
 
 <h2>📚 Select PYQ</h2>
 
-
 <div class="filters">
 
 <div>
-
 <label>Year</label>
 
 <select id="year">
-
 <option>2026</option>
 <option>2025</option>
 <option>2024</option>
@@ -251,54 +201,29 @@ grid-template-columns:1fr;
 <option>2018</option>
 <option>2017</option>
 <option>2016</option>
-
 </select>
-
 </div>
-
 
 <div>
-
 <label>Subject</label>
 
-<select id="subject">
-
-<option>Physics</option>
-<option>Chemistry</option>
-<option>Mathematics</option>
-
+<select id="subject" onchange="updateChapters()">
+<option value="Physics">Physics</option>
+<option value="Chemistry">Chemistry</option>
+<option value="Mathematics">Mathematics</option>
 </select>
-
 </div>
 
 </div>
-
 
 <label>Chapter</label>
+<select id="chapter"></select>
 
-<select id="chapter">
-
-<option>Kinematics</option>
-<option>Laws of Motion</option>
-<option>Work, Energy & Power</option>
-
-<option>Mole Concept</option>
-<option>Atomic Structure</option>
-<option>Chemical Bonding</option>
-
-<option>Quadratic Equations</option>
-<option>Trigonometry</option>
-<option>Complex Numbers</option>
-
-</select>
-
-
-<button onclick="loadPYQ()">
-🔥 Start JEE Main PYQ
+<button onclick="openPYQ()">
+🔥 Practice Real PYQs
 </button>
 
 </div>
-
 
 
 <!-- TIMER -->
@@ -310,57 +235,20 @@ grid-template-columns:1fr;
 <div class="filters">
 
 <div>
-
 <label>Minutes</label>
-
-<input
-id="minutes"
-type="number"
-min="0"
-max="60"
-value="1"
-style="
-width:100%;
-padding:13px;
-border-radius:10px;
-background:#211b38;
-color:white;
-border:1px solid #4b3b77;
-">
-
+<input id="minutes" type="number" min="0" max="180" value="1">
 </div>
-
 
 <div>
-
 <label>Seconds</label>
-
-<input
-id="seconds"
-type="number"
-min="0"
-max="59"
-value="0"
-style="
-width:100%;
-padding:13px;
-border-radius:10px;
-background:#211b38;
-color:white;
-border:1px solid #4b3b77;
-">
-
+<input id="seconds" type="number" min="0" max="59" value="0">
 </div>
 
 </div>
 
-<button onclick="setTimer()">
-⏱️ Set Timer
-</button>
+<button onclick="setTimer()">⏱️ Set Timer</button>
 
-<div class="timer" id="timer">
-01:00
-</div>
+<div class="timer" id="timer">01:00</div>
 
 <button onclick="enableAlarm()" id="alarmBtn">
 🔔 Enable Alarm
@@ -369,15 +257,14 @@ border:1px solid #4b3b77;
 </div>
 
 
-
-<!-- QUESTION -->
+<!-- PRACTICE -->
 
 <div class="card">
 
 <div class="info">
 
-<span id="questionNumber">
-Question 0
+<span id="selection">
+Select PYQ
 </span>
 
 <span>
@@ -386,17 +273,16 @@ Score: <b id="score">0</b>
 
 </div>
 
-
 <div id="questionArea">
 
 <p class="small">
-Select your Year, Subject and Chapter, then start practice.
+Select Year, Subject and Chapter,
+then press "Practice Real PYQs".
 </p>
 
 </div>
 
 </div>
-
 
 
 <!-- RESULT -->
@@ -415,19 +301,14 @@ Correct:
 <b id="correct">0</b>
 </p>
 
+<div class="locked" style="margin-top:18px">
 
-<!-- ACCURACY LOCK -->
-
-<div class="locked" style="margin-top:18px;padding:18px">
-
-<div class="lock">
-🔒
-</div>
+<div class="lock">🔒</div>
 
 <h3>Accuracy is a PRO Feature</h3>
 
 <p class="small">
-Unlock JEE Hub PRO to see your exact accuracy,
+Unlock JEE Hub PRO to see exact accuracy,
 detailed performance and advanced statistics.
 </p>
 
@@ -440,28 +321,23 @@ detailed performance and advanced statistics.
 </div>
 
 
-
 <!-- PRO -->
 
 <div class="card locked">
 
 <h2>⭐ JEE HUB PRO</h2>
 
-<div class="pro">
-₹25/month
-</div>
+<div class="pro">₹25/month</div>
 
 <p class="small">
 or ₹180 • JEE 2027 Pass
 </p>
 
-<p style="margin-top:15px">
-
+<p style="margin-top:15px;line-height:1.8">
 🔒 JEE Advanced Practice<br>
 🔒 Accuracy %<br>
 🔒 Detailed Statistics<br>
 🔒 Advanced Performance Tracking
-
 </p>
 
 <button onclick="location.href='pro.html'">
@@ -471,321 +347,332 @@ View PRO
 </div>
 
 
+<!-- SOURCE -->
+
 <div class="card">
 
 <h2>📌 PYQ Source</h2>
 
-<p class="small">
-
-Questions should be accessed from the
-official JEE Main/NTA papers or legally
-licensed material.
-
-</p>
-
-<div class="source">
-
-<b>Credit / Source</b><br><br>
-
-JEE Main / NTA Official Question Papers
-
+<div id="sourceArea" class="source">
+Select a chapter to see its verified PYQ source.
 </div>
 
 </div>
-
 
 </div>
 
 
 <footer>
-
 © 2026 JEE Study Hub<br>
 Mentored by Dibyanshu
-
 </footer>
-
 
 
 <script>
 
+/* =====================================================
+   CHAPTERS
+===================================================== */
 
-/* ==============================
-   SAMPLE STRUCTURE
-============================== */
+const chapters={
 
-const questionData = {
-
-"Kinematics":[
-
-{
-q:"A particle moves with constant acceleration. Its velocity changes from 10 m/s to 20 m/s in 5 seconds. What is its acceleration?",
-options:[
-"1 m/s²",
-"2 m/s²",
-"3 m/s²",
-"4 m/s²"
-],
-answer:1
-},
-
-{
-q:"The slope of a velocity-time graph represents:",
-options:[
-"Displacement",
-"Speed",
-"Acceleration",
-"Distance"
-],
-answer:2
-}
-
+Physics:[
+"Units & Measurements",
+"Kinematics",
+"Laws of Motion",
+"Work, Energy & Power",
+"Rotational Motion",
+"Gravitation",
+"Properties of Solids and Liquids",
+"Thermodynamics",
+"Kinetic Theory of Gases",
+"Oscillations",
+"Waves",
+"Electrostatics",
+"Current Electricity",
+"Magnetic Effects of Current and Magnetism",
+"Electromagnetic Induction and Alternating Current",
+"Electromagnetic Waves",
+"Optics",
+"Dual Nature of Matter and Radiation",
+"Atoms and Nuclei",
+"Electronic Devices",
+"Experimental Skills"
 ],
 
-"Laws of Motion":[
-
-{
-q:"According to Newton's second law, force is related to:",
-options:[
-"Displacement",
-"Rate of change of momentum",
-"Distance",
-"Time only"
-],
-answer:1
-}
-
-],
-
-"Work, Energy & Power":[
-
-{
-q:"The SI unit of work is:",
-options:[
-"Watt",
-"Joule",
-"Newton",
-"Pascal"
-],
-answer:1
-}
-
+Chemistry:[
+"Some Basic Concepts of Chemistry",
+"Atomic Structure",
+"Chemical Bonding and Molecular Structure",
+"Chemical Thermodynamics",
+"Solutions",
+"Equilibrium",
+"Redox Reactions and Electrochemistry",
+"Chemical Kinetics",
+"Classification of Elements and Periodicity",
+"p-Block Elements",
+"d- and f-Block Elements",
+"Coordination Compounds",
+"Purification and Characterisation of Organic Compounds",
+"Some Basic Principles of Organic Chemistry",
+"Hydrocarbons",
+"Organic Compounds Containing Halogens",
+"Organic Compounds Containing Oxygen",
+"Organic Compounds Containing Nitrogen",
+"Biomolecules",
+"Principles Related to Practical Chemistry"
 ],
 
-"Mole Concept":[
-
-{
-q:"One mole contains approximately:",
-options:[
-"6.022 × 10²³ particles",
-"3.011 × 10²³ particles",
-"9.8 × 10²³ particles",
-"1.602 × 10¹⁹ particles"
-],
-answer:0
-}
-
-],
-
-"Atomic Structure":[
-
-{
-q:"The nucleus of an atom contains:",
-options:[
-"Only electrons",
-"Protons and neutrons",
-"Only neutrons",
-"Electrons only"
-],
-answer:1
-}
-
-],
-
-"Chemical Bonding":[
-
-{
-q:"A covalent bond is generally formed by:",
-options:[
-"Transfer of electrons",
-"Sharing of electrons",
-"Transfer of protons",
-"Sharing of neutrons"
-],
-answer:1
-}
-
-],
-
-"Quadratic Equations":[
-
-{
-q:"The discriminant of ax² + bx + c = 0 is:",
-options:[
-"b² + 4ac",
-"b² - 4ac",
-"a² - 4bc",
-"c² - 4ab"
-],
-answer:1
-}
-
-],
-
-"Trigonometry":[
-
-{
-q:"The value of sin²θ + cos²θ is:",
-options:[
-"0",
-"1",
-"2",
-"sinθ"
-],
-answer:1
-}
-
-],
-
-"Complex Numbers":[
-
-{
-q:"The value of i² is:",
-options:[
-"1",
-"-1",
-"i",
-"0"
-],
-answer:1
-}
-
+Mathematics:[
+"Sets",
+"Relations and Functions",
+"Complex Numbers",
+"Quadratic Equations",
+"Matrices and Determinants",
+"Permutations and Combinations",
+"Binomial Theorem",
+"Sequences and Series",
+"Limits",
+"Continuity and Differentiability",
+"Integral Calculus",
+"Differential Equations",
+"Coordinate Geometry",
+"Three Dimensional Geometry",
+"Vector Algebra",
+"Statistics",
+"Probability",
+"Trigonometry"
 ]
+};
+
+
+/* =====================================================
+   VERIFIED KNOWN SATHEE PAGES
+   Only verified mappings are placed here.
+===================================================== */
+
+const verifiedPages={
+
+/* 2024 */
+
+"2024|Chemistry|Some Basic Concepts of Chemistry":
+"https://sathee.iitk.ac.in/sathee-jee/jee-pyq/2024/chemistry/some_basic_concepts_of_chemistry/",
+
+"2024|Chemistry|Atomic Structure":
+"https://sathee.iitk.ac.in/sathee-jee/jee-pyq/2024/chemistry/structure_of_atom/",
+
+"2024|Chemistry|Coordination Compounds":
+"https://sathee.iitk.ac.in/sathee-jee/jee-pyq/2024/chemistry/coordination_compounds/",
+
+"2024|Chemistry|Electrochemistry":
+"https://sathee.iitk.ac.in/sathee-jee/jee-pyq/2024/chemistry/electrochemistry/",
+
+"2024|Mathematics|Matrices and Determinants":
+"https://sathee.iitk.ac.in/sathee-jee/jee-pyq/2024/maths/matrices/",
+
+"2024|Mathematics|Sequences and Series":
+"https://sathee.iitk.ac.in/sathee-jee/jee-pyq/2024/maths/sequences_and_series/",
+
+"2024|Mathematics|Probability":
+"https://sathee.iitk.ac.in/sathee-jee/jee-pyq/2024/maths/probability/",
+
+"2024|Mathematics|Statistics":
+"https://sathee.iitk.ac.in/sathee-jee/jee-pyq/2024/maths/statistics/",
+
+"2024|Mathematics|Trigonometry":
+"https://sathee.iitk.ac.in/sathee-jee/jee-pyq/2024/maths/trigonometric_ratios_and_identities/",
+
+"2024|Mathematics|Sets":
+"https://sathee.iitk.ac.in/sathee-jee/jee-pyq/2024/maths/sets_and_relations/"
 
 };
 
 
+/* =====================================================
+   GENERAL VERIFIED INDEXES
+===================================================== */
 
-/* ==============================
-   VARIABLES
-============================== */
+const indexPages={
 
-let questions=[];
+Physics:
+"https://sathee.iitk.ac.in/sathee-jee/jee-pyq/chapter-wise/physics/",
 
-let current=0;
+Chemistry:
+"https://sathee.iitk.ac.in/jee-pyq-chapterwise/chemistry/",
 
-let selected=null;
+Mathematics:
+"https://sathee.iitk.ac.in/jee-pyq-chapterwise/mathematics/"
 
-let score=0;
+};
 
-let attempted=0;
 
-let correct=0;
+/* =====================================================
+   UPDATE CHAPTERS
+===================================================== */
+
+function updateChapters(){
+
+const subject=
+document.getElementById("subject").value;
+
+const select=
+document.getElementById("chapter");
+
+select.innerHTML="";
+
+chapters[subject].forEach(function(chapter){
+
+const option=
+document.createElement("option");
+
+option.value=chapter;
+option.textContent=chapter;
+
+select.appendChild(option);
+
+});
+
+}
+
+
+/* =====================================================
+   OPEN PYQ
+===================================================== */
+
+function openPYQ(){
+
+const year=
+document.getElementById("year").value;
+
+const subject=
+document.getElementById("subject").value;
+
+const chapter=
+document.getElementById("chapter").value;
+
+const key=
+year+"|"+subject+"|"+chapter;
+
+const exactURL=
+verifiedPages[key];
+
+const fallbackURL=
+indexPages[subject];
+
+document.getElementById("selection").innerText=
+year+" • "+subject;
+
+document.getElementById("questionArea").innerHTML=
+
+'<div class="source">'+
+'<b>📚 '+chapter+'</b><br><br>'+
+'JEE Main '+year+' • '+subject+
+'</div>'+
+
+'<a class="practice" href="'+
+(exactURL || fallbackURL)+
+'" target="_blank">'+
+
+(exactURL
+?
+'🔥 Open Verified '+year+' PYQs'
+:
+'📚 Open Verified Chapter-wise PYQs')+
+
+'</a>';
+
+document.getElementById("sourceArea").innerHTML=
+
+'<b>Selected:</b> '+
+year+" • "+subject+" • "+chapter+
+
+'<br><br>'+
+
+(exactURL
+?
+'✅ Exact verified year/chapter page available.'
+:
+'📚 Opening the verified subject chapter-wise index.');
+
+}
+
+
+/* =====================================================
+   TIMER
+===================================================== */
 
 let timerInterval=null;
-
-let timeLeft=60;
-
 let timerSetting=60;
-
+let timeLeft=60;
 let alarmEnabled=false;
-
-let answered=false;
-
-
-
-/* ==============================
-   SET TIMER
-============================== */
-
-function setTimer(){
-
-let m=parseInt(
-document.getElementById("minutes").value
-)||0;
-
-let s=parseInt(
-document.getElementById("seconds").value
-)||0;
-
-if(m<0)m=0;
-
-if(s<0)s=0;
-
-if(s>59)s=59;
-
-let total=(m*60)+s;
-
-if(total<1){
-
-alert("Set at least 1 second.");
-
-return;
-
-}
-
-timerSetting=total;
-
-timeLeft=total;
-
-updateTimer();
-
-alert(
-"Timer set to "+formatTime(total)
-);
-
-}
-
-
-
-/* ==============================
-   FORMAT TIME
-============================== */
 
 function formatTime(t){
 
 let m=Math.floor(t/60);
-
 let s=t%60;
 
-return String(m).padStart(2,"0")
-+":"+
+return String(m).padStart(2,"0")+
+":"+
 String(s).padStart(2,"0");
 
 }
 
-
-
-/* ==============================
-   UPDATE TIMER
-============================== */
-
 function updateTimer(){
 
-document.getElementById("timer")
-.innerText=
+document.getElementById("timer").innerText=
 formatTime(timeLeft);
 
 }
 
+function setTimer(){
+
+let m=
+parseInt(document.getElementById("minutes").value)||0;
+
+let s=
+parseInt(document.getElementById("seconds").value)||0;
+
+if(m<0)m=0;
+if(s<0)s=0;
+if(s>59)s=59;
+
+const total=(m*60)+s;
+
+if(total<1){
+
+alert("Set at least 1 second.");
+return;
+
+}
+
+clearInterval(timerInterval);
+
+timerSetting=total;
+timeLeft=total;
+
+document.getElementById("timer")
+.classList.remove("warning");
+
+updateTimer();
+
+}
 
 
-/* ==============================
+/* =====================================================
    ALARM
-============================== */
+===================================================== */
 
 function enableAlarm(){
 
 alarmEnabled=true;
 
-let btn=document.getElementById("alarmBtn");
+const btn=
+document.getElementById("alarmBtn");
 
 btn.innerText="🔔 Alarm Enabled";
-
 btn.style.background="#16a34a";
 
 }
-
-
 
 function playAlarm(){
 
@@ -806,314 +693,23 @@ const gain=
 ctx.createGain();
 
 oscillator.frequency.value=850;
-
 gain.gain.value=.25;
 
 oscillator.connect(gain);
-
 gain.connect(ctx.destination);
 
 oscillator.start();
 
-oscillator.stop(
-ctx.currentTime+.8
-);
+oscillator.stop(ctx.currentTime+.8);
 
 }catch(e){}
 
 }
 
 
-
-/* ==============================
-   LOAD PYQ
-============================== */
-
-function loadPYQ(){
-
-clearInterval(timerInterval);
-
-let chapter=
-document.getElementById("chapter").value;
-
-questions=
-questionData[chapter]||[];
-
-current=0;
-
-score=0;
-
-attempted=0;
-
-correct=0;
-
-selected=null;
-
-answered=false;
-
-document.getElementById("score").innerText=0;
-
-document.getElementById("attempted").innerText=0;
-
-document.getElementById("correct").innerText=0;
-
-loadQuestion();
-
-}
-
-
-
-/* ==============================
-   LOAD QUESTION
-============================== */
-
-function loadQuestion(){
-
-if(!questions.length){
-
-document.getElementById("questionArea")
-.innerHTML=
-"<p>No questions available for this chapter yet.</p>";
-
-return;
-
-}
-
-answered=false;
-
-selected=null;
-
-document.getElementById("questionNumber")
-.innerText=
-"Question "+
-(current+1)+
-" / "+
-questions.length;
-
-
-let q=questions[current];
-
-let html=
-'<div class="question">'+
-q.q+
-'</div>'+
-'<div class="options">';
-
-q.options.forEach(
-function(option,index){
-
-html+=
-'<button class="option" '+
-'onclick="selectOption('+
-index+
-',this)">'+
-String.fromCharCode(65+index)+
-". "+
-option+
-'</button>';
-
-});
-
-html+="</div>";
-
-html+=
-'<button onclick="submitAnswer()" id="submitBtn">'+
-"Submit Answer"+
-"</button>";
-
-html+=
-'<button onclick="nextQuestion()" id="nextBtn" disabled>'+
-"Next →"+
-"</button>";
-
-html+=
-'<div class="result" id="result" style="display:none"></div>';
-
-html+=
-'<div class="source">'+
-"Source: JEE Main / NTA Official Paper"+
-"</div>";
-
-document.getElementById("questionArea")
-.innerHTML=html;
-
-startTimer();
-
-}
-
-
-
-/* ==============================
-   SELECT
-============================== */
-
-function selectOption(index,button){
-
-if(answered)return;
-
-selected=index;
-
-document
-.querySelectorAll(".option")
-.forEach(
-function(x){
-x.classList.remove("selected");
-});
-
-button.classList.add("selected");
-
-}
-
-
-
-/* ==============================
-   SUBMIT
-============================== */
-
-function submitAnswer(){
-
-if(answered)return;
-
-if(selected===null){
-
-alert("Select an answer first.");
-
-return;
-
-}
-
-checkAnswer(selected,false);
-
-}
-
-
-
-/* ==============================
-   CHECK
-============================== */
-
-function checkAnswer(choice,timeUp){
-
-answered=true;
-
-clearInterval(timerInterval);
-
-attempted++;
-
-let q=questions[current];
-
-let options=
-document.querySelectorAll(".option");
-
-options.forEach(
-function(x){
-x.disabled=true;
-});
-
-
-let result=
-document.getElementById("result");
-
-result.style.display="block";
-
-
-if(choice===q.answer){
-
-correct++;
-
-score++;
-
-options[q.answer]
-.classList.add("correct");
-
-result.innerHTML=
-"✅ <b>Correct!</b><br>"+
-"Good job!";
-
-}else{
-
-if(choice!==null){
-
-options[choice]
-.classList.add("wrong");
-
-}
-
-options[q.answer]
-.classList.add("correct");
-
-result.innerHTML=
-"❌ <b>Incorrect</b><br>"+
-"Correct answer: "+
-String.fromCharCode(65+q.answer)+
-". "+
-q.options[q.answer];
-
-}
-
-
-if(timeUp){
-
-result.innerHTML+=
-"<br>⏰ Time's up!";
-
-}
-
-document.getElementById("score")
-.innerText=score;
-
-document.getElementById("attempted")
-.innerText=attempted;
-
-document.getElementById("correct")
-.innerText=correct;
-
-document.getElementById("submitBtn")
-.disabled=true;
-
-document.getElementById("nextBtn")
-.disabled=false;
-
-}
-
-
-
-/* ==============================
-   NEXT
-============================== */
-
-function nextQuestion(){
-
-if(!answered)return;
-
-if(current<questions.length-1){
-
-current++;
-
-loadQuestion();
-
-}else{
-
-clearInterval(timerInterval);
-
-document.getElementById("questionArea")
-.innerHTML=
-'<div class="question">'+
-"🎉 All available questions completed!"+
-"</div>"+
-'<p class="small">'+
-"Finish the session to save your progress."+
-"</p>";
-
-}
-
-}
-
-
-
-/* ==============================
-   TIMER START
-============================== */
+/* =====================================================
+   START TIMER
+===================================================== */
 
 function startTimer(){
 
@@ -1121,49 +717,62 @@ clearInterval(timerInterval);
 
 timeLeft=timerSetting;
 
-let timer=
+const timer=
 document.getElementById("timer");
 
 timer.classList.remove("warning");
 
 updateTimer();
 
-
-timerInterval=setInterval(
-function(){
+timerInterval=setInterval(function(){
 
 timeLeft--;
 
 updateTimer();
 
-
 if(timeLeft<=10){
-
 timer.classList.add("warning");
-
 }
-
 
 if(timeLeft<=0){
 
 clearInterval(timerInterval);
 
-timer.innerText="00:00";
+timeLeft=0;
+
+updateTimer();
 
 playAlarm();
 
-checkAnswer(null,true);
+}
+
+},1000);
 
 }
 
-},
-1000
-);
 
-}
+/* =====================================================
+   START TIMER WITH PYQ
+===================================================== */
 
+const originalOpenPYQ=openPYQ;
+
+openPYQ=function(){
+
+originalOpenPYQ();
+
+startTimer();
+
+};
+
+
+/* =====================================================
+   INITIALISE
+===================================================== */
+
+updateChapters();
 
 </script>
 
 </body>
-    </html>
+   </html>
